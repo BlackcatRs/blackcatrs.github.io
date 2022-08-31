@@ -1,0 +1,122 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on BlackcatRS</title>
+        <link>https://blackcatrs.github.io/posts/</link>
+        <description>Recent content in Posts on BlackcatRS</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <lastBuildDate>Tue, 30 Aug 2022 20:25:31 +0200</lastBuildDate>
+        <atom:link href="https://blackcatrs.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Self-hosted password managers</title>
+            <link>https://blackcatrs.github.io/posts/2022/08/self-hosted-password-managers/</link>
+            <pubDate>Tue, 30 Aug 2022 20:25:31 +0200</pubDate>
+            
+            <guid>https://blackcatrs.github.io/posts/2022/08/self-hosted-password-managers/</guid>
+            <description>Les mots de passe doivent être stockés en toute sécurité ou, en d&amp;rsquo;autres termes, les empreintes digitales (ou hachages) des mots de passe doivent être conservées plutôt que des mots de passe clairs. Ces empreintes, également appelées hachés, sont le résultat d&amp;rsquo;une fonction de hachage cryptographique qui utilise une valeur aléatoire unique (communément appelée un sel) lors du calcul du hachage du mot de passe.
+Pour conserver les mots de passe, il est recommandé d’utiliser des fonctions de dérivation de mots de passe memory-hard comme scrypt ou Argon2.</description>
+            <content type="html"><![CDATA[<p>Les mots de passe doivent être stockés en toute sécurité ou, en d&rsquo;autres termes, les empreintes digitales (ou hachages) des mots de passe doivent être conservées plutôt que des mots de passe clairs.
+Ces empreintes, également appelées hachés, sont le résultat d&rsquo;une fonction de hachage cryptographique qui utilise une valeur aléatoire unique (communément appelée un sel) lors du calcul du hachage du mot de passe.</p>
+<p>Pour conserver les mots de passe, il est recommandé d’utiliser des fonctions de dérivation de mots de passe memory-hard comme scrypt ou Argon2.
+Pour des contextes où il est difficile de faire usage de fonctions memory-hard, il est recommandé d’utiliser la fonction de dérivation de mots de passe PBKDF2. Il est conseillé de choisir le nombre d’itérations de PBKDF2 le plus grand possible.</p>
+<p><em>Source : <a href="https://www.ssi.gouv.fr/tag/coffre-fort-de-mots-de-passe/">https://www.ssi.gouv.fr/tag/coffre-fort-de-mots-de-passe/</a></em></p>
+<p>Les gestionnaires de mots de passe sont destinés à cet effet. Ils se présentent sous différentes formes, fonctionnalités, plates-formes et différents publics :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Nom du gestionnaire de mots de passe</th>
+<th style="text-align:center">Description</th>
+<th style="text-align:center">URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Bitwarden</td>
+<td style="text-align:center">Open source password management solutions for individuals, teams, and business organizations.</td>
+<td style="text-align:center"><a href="https://github.com/bitwarden">https://github.com/bitwarden</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Passbolt</td>
+<td style="text-align:center">Passbolt CE Backend, a JSON API written with Cakephp</td>
+<td style="text-align:center"><a href="https://github.com/passbolt/passbolt_api">https://github.com/passbolt/passbolt_api</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Padloc</td>
+<td style="text-align:center">A modern, open source password manager for individuals and teams.</td>
+<td style="text-align:center"><a href="https://github.com/padloc/padloc">https://github.com/padloc/padloc</a></td>
+</tr>
+<tr>
+<td style="text-align:center">LessPass</td>
+<td style="text-align:center">LessPass is a stateless password manager.</td>
+<td style="text-align:center"><a href="https://github.com/lesspass/lesspass">https://github.com/lesspass/lesspass</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Psono</td>
+<td style="text-align:center">Open Source Self Hosted Password Manager for Teams</td>
+<td style="text-align:center"><a href="https://gitlab.com/psono">https://gitlab.com/psono</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Teampass 3</td>
+<td style="text-align:center">Collaborative Passwords Manager</td>
+<td style="text-align:center"><a href="https://github.com/nilsteampassnet/TeamPass">https://github.com/nilsteampassnet/TeamPass</a></td>
+</tr>
+<tr>
+<td style="text-align:center">KeePass</td>
+<td style="text-align:center">Free cross-platform password manager compatible with KeePass</td>
+<td style="text-align:center"><a href="https://github.com/keeweb/keeweb">https://github.com/keeweb/keeweb</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Passwordcockpit</td>
+<td style="text-align:center">Passwordcockpit is a simple, free, open source, self hosted, web based password manager for teams. It is made in PHP, Javascript, MySQL and it run on a docker service. It allows users with any kind of device to safely store, share and retrieve passwords, certificates, files and much more.</td>
+<td style="text-align:center"><a href="https://github.com/passwordcockpit/passwordcockpit">https://github.com/passwordcockpit/passwordcockpit</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Encryptr</td>
+<td style="text-align:center">Encryptr is a zero-knowledge cloud-based password manager / e-wallet powered by Crypton</td>
+<td style="text-align:center"><a href="https://github.com/SpiderOak/Encryptr">https://github.com/SpiderOak/Encryptr</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Vault</td>
+<td style="text-align:center">A tool for secrets management, encryption as a service, and privileged access management</td>
+<td style="text-align:center"><a href="https://github.com/hashicorp/vault">https://github.com/hashicorp/vault</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Password Manager</td>
+<td style="text-align:center">Self-hosted Password Manager based on Laravel 9 + PHP 8 + MySQL 8. Gestor de Contraseñas basado en Laravel 9 + PHP 8 + MySQL 8.</td>
+<td style="text-align:center"><a href="https://github.com/eusonlito/Password-Manager">https://github.com/eusonlito/Password-Manager</a></td>
+</tr>
+<tr>
+<td style="text-align:center">Vaultage</td>
+<td style="text-align:center">An open-source, web-based, self-hosted password manager with client-side encryption.</td>
+<td style="text-align:center"><a href="https://github.com/vaultage-pm/vaultage">https://github.com/vaultage-pm/vaultage</a></td>
+</tr>
+<tr>
+<td style="text-align:center">sysPass - Systems Password Manager</td>
+<td style="text-align:center">PHP web based Password Manager for business and personal use.</td>
+<td style="text-align:center"><a href="https://github.com/nuxsmin/sysPass">https://github.com/nuxsmin/sysPass</a></td>
+</tr>
+</tbody>
+</table>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Encodage</title>
+            <link>https://blackcatrs.github.io/posts/2022/08/encodage/</link>
+            <pubDate>Tue, 30 Aug 2022 19:06:29 +0200</pubDate>
+            
+            <guid>https://blackcatrs.github.io/posts/2022/08/encodage/</guid>
+            <description>Toutes les données sont stockées dans un format binaire brut (raw binary format) sur les ordinateurs. Ces formats de codage (Base64, Base58 et ASCII) ne sont que des façons différentes de lire et d&amp;rsquo;écrire des données binaires. Par exemple, en Base64, le code binaire 000000 représente la lettre A, mais en ASCII, le binaire 00000000 représente le caractère NUL.
+ASCII Base64 Base64 vs Base58 Encoding Base64 est l&amp;rsquo;un des formats d&amp;rsquo;encodage les plus populaires pour la représentation des données.</description>
+            <content type="html"><![CDATA[<p>Toutes les données sont stockées dans un format binaire brut (raw binary format) sur les ordinateurs. Ces formats de codage (Base64, Base58 et ASCII) ne sont que des façons différentes de lire et d&rsquo;écrire des données binaires. Par exemple, en Base64, le code binaire 000000 représente la lettre A, mais en ASCII, le binaire 00000000 représente le caractère NUL.</p>
+<h2 id="ascii">ASCII </h2>
+<p><img src="/encodage/ascii.png" alt="ASCII table"></p>
+<h2 id="base64">Base64 </h2>
+<p><img src="/encodage/base64.png" alt="Caractères Base64"></p>
+<h2 id="base64-vs-base58-encoding">Base64 vs Base58 Encoding</h2>
+<p>Base64 est l&rsquo;un des formats d&rsquo;encodage les plus populaires pour la représentation des données. Base64 l&rsquo;encode pour une lisibilité et une analyse pratiques. Base58 est juste un autre format d&rsquo;encodage (avec 58 caractères au lieu de 64, et a gagné en popularité en grande partie grâce au Bitcoin et à d&rsquo;autres crypto-monnaies.</p>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>
