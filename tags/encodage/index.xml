@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>encodage on BlackcatRS</title>
+    <link>https://blackcatrs.github.io/tags/encodage/</link>
+    <description>Recent content in encodage on BlackcatRS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 30 Aug 2022 19:06:29 +0200</lastBuildDate><atom:link href="https://blackcatrs.github.io/tags/encodage/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Encodage</title>
+      <link>https://blackcatrs.github.io/posts/2022/08/encodage/</link>
+      <pubDate>Tue, 30 Aug 2022 19:06:29 +0200</pubDate>
+      
+      <guid>https://blackcatrs.github.io/posts/2022/08/encodage/</guid>
+      <description>Toutes les données sont stockées dans un format binaire brut (raw binary format) sur les ordinateurs. Ces formats de codage (Base64, Base58 et ASCII) ne sont que des façons différentes de lire et d&amp;rsquo;écrire des données binaires. Par exemple, en Base64, le code binaire 000000 représente la lettre A, mais en ASCII, le binaire 00000000 représente le caractère NUL.
+ASCII Base64 Base64 vs Base58 Encoding Base64 est l&amp;rsquo;un des formats d&amp;rsquo;encodage les plus populaires pour la représentation des données.</description>
+    </item>
+    
+  </channel>
+</rss>
