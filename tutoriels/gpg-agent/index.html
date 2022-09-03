@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="BlackcatRS ">
+<meta name="description" content="Table of Contents Linux Windows Linux Beaucoup d&amp;rsquo;entre nous connaissent Secure Shell (SSH) et nous connaissons les avantages d&amp;rsquo;utiliser une clé SSH au lieu d&amp;rsquo;un mot de passe. L&amp;rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées. SSH est un protocole sécurisé et les clés SSH sont sécurisées. Au lieu de cela, cela facilite la gestion et l&amp;rsquo;utilisation de votre clé SSH. Toutes les commandes continueront à fonctionner comme avant, sauf que vous n&amp;rsquo;aurez plus de clés privées SSH." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://blackcatrs.github.io/tutoriels/gpg-agent/" />
+
+
+    <title>
+        
+            Authentification SSH à l&#39;aide d&#39;une clé GPG :: BlackcatRS 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://blackcatrs.github.io/main.4e5c639214707eff609bb55fe49e183dee42258a73bc90e4cc7b0a84f900798a.css">
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://blackcatrs.github.io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://blackcatrs.github.io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://blackcatrs.github.io/favicon-16x16.png">
+    <link rel="manifest" href="https://blackcatrs.github.io/site.webmanifest">
+    <link rel="mask-icon" href="https://blackcatrs.github.io/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="https://blackcatrs.github.io/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+<meta itemprop="name" content="Authentification SSH à l&#39;aide d&#39;une clé GPG">
+<meta itemprop="description" content="Table of Contents Linux Windows Linux Beaucoup d&rsquo;entre nous connaissent Secure Shell (SSH) et nous connaissons les avantages d&rsquo;utiliser une clé SSH au lieu d&rsquo;un mot de passe. L&rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées. SSH est un protocole sécurisé et les clés SSH sont sécurisées. Au lieu de cela, cela facilite la gestion et l&rsquo;utilisation de votre clé SSH. Toutes les commandes continueront à fonctionner comme avant, sauf que vous n&rsquo;aurez plus de clés privées SSH."><meta itemprop="datePublished" content="2022-09-01T21:59:44+02:00" />
+<meta itemprop="dateModified" content="2022-09-01T21:59:44+02:00" />
+<meta itemprop="wordCount" content="760"><meta itemprop="image" content="https://blackcatrs.github.io"/>
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blackcatrs.github.io"/>
+
+<meta name="twitter:title" content="Authentification SSH à l&#39;aide d&#39;une clé GPG"/>
+<meta name="twitter:description" content="Table of Contents Linux Windows Linux Beaucoup d&rsquo;entre nous connaissent Secure Shell (SSH) et nous connaissons les avantages d&rsquo;utiliser une clé SSH au lieu d&rsquo;un mot de passe. L&rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées. SSH est un protocole sécurisé et les clés SSH sont sécurisées. Au lieu de cela, cela facilite la gestion et l&rsquo;utilisation de votre clé SSH. Toutes les commandes continueront à fonctionner comme avant, sauf que vous n&rsquo;aurez plus de clés privées SSH."/>
+
+
+
+    <meta property="og:title" content="Authentification SSH à l&#39;aide d&#39;une clé GPG" />
+<meta property="og:description" content="Table of Contents Linux Windows Linux Beaucoup d&rsquo;entre nous connaissent Secure Shell (SSH) et nous connaissons les avantages d&rsquo;utiliser une clé SSH au lieu d&rsquo;un mot de passe. L&rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées. SSH est un protocole sécurisé et les clés SSH sont sécurisées. Au lieu de cela, cela facilite la gestion et l&rsquo;utilisation de votre clé SSH. Toutes les commandes continueront à fonctionner comme avant, sauf que vous n&rsquo;aurez plus de clés privées SSH." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blackcatrs.github.io/tutoriels/gpg-agent/" /><meta property="og:image" content="https://blackcatrs.github.io"/><meta property="article:section" content="tutoriels" />
+<meta property="article:published_time" content="2022-09-01T21:59:44+02:00" />
+<meta property="article:modified_time" content="2022-09-01T21:59:44+02:00" />
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="2022-09-01 21:59:44 &#43;0200 CEST" />
+
+
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://blackcatrs.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">BlackcarRS ~</span>
+            <span class="logo__text"> </span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://blackcatrs.github.io/about/">A propos</a></li><li><a href="https://blackcatrs.github.io/posts/">Posts</a></li><li><a href="https://blackcatrs.github.io/tags/">Tags</a></li><li><a href="https://blackcatrs.github.io/tutoriels/">Tutoriels</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+                <span class="theme-toggle not-selectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+   3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+   13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+ </svg></span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="https://blackcatrs.github.io/tutoriels/gpg-agent/">Authentification SSH à l&rsquo;aide d&rsquo;une clé GPG</a></h2>
+
+            
+            
+            
+
+            <div class="post-content">
+                <h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#linux">Linux</a></li>
+<li><a href="#windows">Windows</a></li>
+</ol>
+<h2 id="linux">Linux</h2>
+<p>Beaucoup d&rsquo;entre nous connaissent Secure Shell (SSH) et nous connaissons les avantages d&rsquo;utiliser une clé SSH au lieu d&rsquo;un mot de passe.
+L&rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées. SSH est un protocole sécurisé et les clés SSH sont sécurisées. Au lieu de cela, cela facilite la gestion et l&rsquo;utilisation de votre clé SSH.
+Toutes les commandes continueront à fonctionner comme avant, sauf que vous n&rsquo;aurez plus de clés privées SSH. Au lieu de cela, vous utiliserez votre clé privée GPG.</p>
+<p>Je suppose que vous avez déjà la paire de clés GPG et maintenant vous allez créer la sous-clé en modifiant votre clé existante. Vous devez modifier votre clé en mode expert pour accéder aux options appropriées.</p>
+<pre tabindex="0"><code>~ ❯ gpg --full-generate-key 
+gpg (GnuPG) 2.2.27; Copyright (C) 2021 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Sélectionnez le type de clef désiré :
+   (1) RSA et RSA (par défaut)
+   (2) DSA et Elgamal
+   (3) DSA (signature seule)
+   (4) RSA (signature seule)
+  (14) Existing key from card
+Quel est votre choix ? 1
+les clefs RSA peuvent faire une taille comprise entre 1024 et 4096 bits.
+Quelle taille de clef désirez-vous ? (3072) 4096
+La taille demandée est 4096 bits
+Veuillez indiquer le temps pendant lequel cette clef devrait être valable.
+         0 = la clef n&#39;expire pas
+      &lt;n&gt;  = la clef expire dans n jours
+      &lt;n&gt;w = la clef expire dans n semaines
+      &lt;n&gt;m = la clef expire dans n mois
+      &lt;n&gt;y = la clef expire dans n ans
+Pendant combien de temps la clef est-elle valable ? (0) 0
+La clef n&#39;expire pas du tout
+Est-ce correct ? (o/N) o
+
+GnuPG doit construire une identité pour identifier la clef.
+
+Nom réel : Votre nom ici
+Adresse électronique : xxx@domain.tld
+Commentaire : La description
+Vous avez sélectionné cette identité :
+    « Votre nom ici (La description) &lt;xxx@domain.tld&gt; »
+
+Changer le (N)om, le (C)ommentaire, l&#39;(A)dresse électronique
+ou (O)ui/(Q)uitter ? o
+De nombreux octets aléatoires doivent être générés. Vous devriez faire
+autre chose (taper au clavier, déplacer la souris, utiliser les disques)
+pendant la génération de nombres premiers ; cela donne au générateur de
+nombres aléatoires une meilleure chance d&#39;obtenir suffisamment d&#39;entropie.
+De nombreux octets aléatoires doivent être générés. Vous devriez faire
+autre chose (taper au clavier, déplacer la souris, utiliser les disques)
+pendant la génération de nombres premiers ; cela donne au générateur de
+nombres aléatoires une meilleure chance d&#39;obtenir suffisamment d&#39;entropie.
+gpg: clef BA1281BBB47C8E64 marquée de confiance ultime.
+gpg: revocation certificate stored as &#39;/home/username/.gnupg/openpgp-revocs.d/A5DDBFE7E7A2ACEDD63A46D3BA1281BBB47C8E64.rev&#39;
+les clefs publique et secrète ont été créées et signées.
+
+pub   rsa4096 2022-09-01 [SC]
+      A5DDBFE7E7A2ACEDD63A46D3BA1281BBB47C8E64
+uid                      Votre nom ici (La description) &lt;xxx@domain.tld&gt;
+sub   rsa4096 2022-09-01 [E]
+</code></pre><p>Lors de l&rsquo;utilisation du client SSH, un programme appelé ssh-agent est utilisé pour gérer les clés. Pour utiliser une sous-clé GPG, vous utiliserez un programme appelé gpg-agent au lieu de ssh-agent, qui gère les clés GPG. Pour que gpg-agent gère les requêtes SSH, vous devez activer la prise en charge en ajoutant la ligne suivante dans le fichier <code>~/.gnupg/gpg-agent.conf</code> :</p>
+<p><code>enable-ssh-support </code></p>
+<p>Vous devez spécifier la sous-clé que nous venons de créer pour le client SSH. Pour ce faire, spécifiez les clés dans le fichier <code>~/.gnupg/sshcontrol</code>. Les entrées de ce fichier sont des keygrips, des identifiants internes que gpg-agent utilise pour faire référence aux clés. Contrairement à un hachage de clé, un keygrip fait référence à la fois à la clé publique et à la clé privée.
+Pour trouver le keygrip, utilisez <code>gpg -K --with-keygrip</code> comme indiqué ci-dessous. Ajoutez ensuite cette ligne à sshcontrol.</p>
+<pre tabindex="0"><code>~ ✦ ❯ gpg -K --with-keygrip 
+/home/vts/.gnupg/pubring.kbx
+----------------------------
+sec   rsa4096 2022-09-01 [SC]
+      A5DDBFE7E7A2ACEDD63A46D3BA1281BBB47C8E64
+      Keygrip = 7A444123D67423224F42B1F8396AF14E07271ADD
+uid          [  ultime ] Votre nom ici (La description) &lt;xxx@domain.tld&gt;
+ssb   rsa4096 2022-09-01 [E]
+      Keygrip = 113D26E8107B983353D62A30411AD167A75A7B19
+ssb   rsa3072 2022-09-01 [A]
+      Keygrip = D46A00658A126A474DC926AD737E27B2663C77BE
+
+~ ✦ ❯ echo  D46A00658A126A474DC926AD737E27B2663C77BE &gt;&gt; ~/.gnupg/sshcontrol
+</code></pre><p>Enfin, vous devez dire au client SSH d&rsquo;utiliser gpg-agent au lieu de ssh-agent. Cela se fait en modifiant la valeur de la variable d&rsquo;environnement <code>SSH_AUTH_SOCK</code>. Les deux lignes suivantes ajoutées à votre <code>~/.bashrc</code> garantiront que la variable est correctement définie et que l&rsquo;agent est lancé au démarrage.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># Utiliser gpg-agent au lieu de ssh-agent</span>
+</span></span><span style="display:flex;"><span>export SSH_AUTH_SOCK<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>gpgconf --list-dirs agent-ssh-socket<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Démarrer  gpg-agent</span>
+</span></span><span style="display:flex;"><span>gpgconf --launch gpg-agent
+</span></span></code></pre></div><p>Pour utiliser SSH, vous devez partager votre clé publique avec l&rsquo;hôte distant dont vous souhaitez prendre le contrôle. Vous pouvez exécuter <code>ssh-add -L</code> pour visualiser vos clés publiques et les copier manuellement sur l&rsquo;hôte distant dans le fichier <code>~/.ssh/authorized_keys</code>.</p>
+<h2 id="windows">Windows</h2>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+            
+            
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2022</span>
+            <span><a href="https://blackcatrs.github.io">BlackcatRS</a></span>
+            
+            <span><a href="https://blackcatrs.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+            
+        </div>
+    </div>
+    
+    
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span><span>Made with &#10084; by <a href="https://github.com/panr/hugo-theme-hello-friend">Hello Friend</a></span>
+        </div>
+    </div>
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="https://blackcatrs.github.io/bundle.min.feebdc8d801e3fb1791305e362b6d11557f029604dd5b3c27e2686bc88787ee90ae1ccf0afe81bd7d959d7617cfe1fc73062aa82b4e1fa830d6941193d2cbddf.js" integrity="sha512-/uvcjYAeP7F5EwXjYrbRFVfwKWBN1bPCfiaGvIh4fukK4czwr&#43;gb19lZ12F8/h/HMGKqgrTh&#43;oMNaUEZPSy93w=="></script>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tutoriels on BlackcatRS</title>
+    <link>https://blackcatrs.github.io/tutoriels/</link>
+    <description>Recent content in Tutoriels on BlackcatRS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 01 Sep 2022 21:59:44 +0200</lastBuildDate><atom:link href="https://blackcatrs.github.io/tutoriels/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Authentification SSH à l&#39;aide d&#39;une clé GPG</title>
+      <link>https://blackcatrs.github.io/tutoriels/gpg-agent/</link>
+      <pubDate>Thu, 01 Sep 2022 21:59:44 +0200</pubDate>
+      
+      <guid>https://blackcatrs.github.io/tutoriels/gpg-agent/</guid>
+      <description>Table of Contents Linux Windows Linux Beaucoup d&amp;rsquo;entre nous connaissent Secure Shell (SSH) et nous connaissons les avantages d&amp;rsquo;utiliser une clé SSH au lieu d&amp;rsquo;un mot de passe. L&amp;rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées. SSH est un protocole sécurisé et les clés SSH sont sécurisées. Au lieu de cela, cela facilite la gestion et l&amp;rsquo;utilisation de votre clé SSH. Toutes les commandes continueront à fonctionner comme avant, sauf que vous n&amp;rsquo;aurez plus de clés privées SSH.</description>
+    </item>
+    
+  </channel>
+</rss>
