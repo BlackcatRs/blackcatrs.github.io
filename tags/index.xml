@@ -5,7 +5,25 @@
     <link>https://blackcatrs.github.io/tags/</link>
     <description>Recent content in Tags on BlackcatRS</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 30 Aug 2022 20:25:31 +0200</lastBuildDate><atom:link href="https://blackcatrs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Sep 2022 21:18:13 +0200</lastBuildDate><atom:link href="https://blackcatrs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Luks</title>
+      <link>https://blackcatrs.github.io/tags/luks/</link>
+      <pubDate>Wed, 07 Sep 2022 21:18:13 +0200</pubDate>
+      
+      <guid>https://blackcatrs.github.io/tags/luks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SSH</title>
+      <link>https://blackcatrs.github.io/tags/ssh/</link>
+      <pubDate>Wed, 07 Sep 2022 21:18:13 +0200</pubDate>
+      
+      <guid>https://blackcatrs.github.io/tags/ssh/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>password-manager</title>
       <link>https://blackcatrs.github.io/tags/password-manager/</link>

@@ -2,13 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blackcatrs.github.io/tutoriels/gpg-agent/</loc>
-    <lastmod>2022-09-01T21:59:44+02:00</lastmod>
-  </url><url>
     <loc>https://blackcatrs.github.io/</loc>
-    <lastmod>2022-09-01T21:59:44+02:00</lastmod>
+    <lastmod>2022-09-07T21:18:13+02:00</lastmod>
+  </url><url>
+    <loc>https://blackcatrs.github.io/tutoriels/luks_remote_decryption/</loc>
+    <lastmod>2022-09-07T21:18:13+02:00</lastmod>
+  </url><url>
+    <loc>https://blackcatrs.github.io/tags/luks/</loc>
+    <lastmod>2022-09-07T21:18:13+02:00</lastmod>
+  </url><url>
+    <loc>https://blackcatrs.github.io/tags/ssh/</loc>
+    <lastmod>2022-09-07T21:18:13+02:00</lastmod>
+  </url><url>
+    <loc>https://blackcatrs.github.io/tags/</loc>
+    <lastmod>2022-09-07T21:18:13+02:00</lastmod>
   </url><url>
     <loc>https://blackcatrs.github.io/tutoriels/</loc>
+    <lastmod>2022-09-07T21:18:13+02:00</lastmod>
+  </url><url>
+    <loc>https://blackcatrs.github.io/tutoriels/gpg-agent/</loc>
     <lastmod>2022-09-01T21:59:44+02:00</lastmod>
   </url><url>
     <loc>https://blackcatrs.github.io/tags/password-manager/</loc>
@@ -18,9 +30,6 @@
     <lastmod>2022-08-30T20:25:31+02:00</lastmod>
   </url><url>
     <loc>https://blackcatrs.github.io/posts/2022/08/self-hosted-password-managers/</loc>
-    <lastmod>2022-08-30T20:25:31+02:00</lastmod>
-  </url><url>
-    <loc>https://blackcatrs.github.io/tags/</loc>
     <lastmod>2022-08-30T20:25:31+02:00</lastmod>
   </url><url>
     <loc>https://blackcatrs.github.io/tags/encodage/</loc>
