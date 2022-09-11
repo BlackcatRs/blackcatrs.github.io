@@ -1,18 +1,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Posts on BlackcatRS</title>
-        <link>https://blackcatrs.github.io/posts/</link>
+        <link>https://atomicl.net/posts/</link>
         <description>Recent content in Posts on BlackcatRS</description>
         <generator>Hugo -- gohugo.io</generator>
         <lastBuildDate>Tue, 30 Aug 2022 20:25:31 +0200</lastBuildDate>
-        <atom:link href="https://blackcatrs.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://atomicl.net/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
             <title>Self-hosted password managers</title>
-            <link>https://blackcatrs.github.io/posts/2022/08/self-hosted-password-managers/</link>
+            <link>https://atomicl.net/posts/2022/08/self-hosted-password-managers/</link>
             <pubDate>Tue, 30 Aug 2022 20:25:31 +0200</pubDate>
             
-            <guid>https://blackcatrs.github.io/posts/2022/08/self-hosted-password-managers/</guid>
+            <guid>https://atomicl.net/posts/2022/08/self-hosted-password-managers/</guid>
             <description>Les mots de passe doivent être stockés en toute sécurité ou, en d&amp;rsquo;autres termes, les empreintes digitales (ou hachages) des mots de passe doivent être conservées plutôt que des mots de passe clairs. Ces empreintes, également appelées hachés, sont le résultat d&amp;rsquo;une fonction de hachage cryptographique qui utilise une valeur aléatoire unique (communément appelée un sel) lors du calcul du hachage du mot de passe.
 Pour conserver les mots de passe, il est recommandé d’utiliser des fonctions de dérivation de mots de passe memory-hard comme scrypt ou Argon2.</description>
             <content type="html"><![CDATA[<p>Les mots de passe doivent être stockés en toute sécurité ou, en d&rsquo;autres termes, les empreintes digitales (ou hachages) des mots de passe doivent être conservées plutôt que des mots de passe clairs.
@@ -102,10 +102,10 @@ Pour des contextes où il est difficile de faire usage de fonctions memory-hard,
         
         <item>
             <title>Encodage</title>
-            <link>https://blackcatrs.github.io/posts/2022/08/encodage/</link>
+            <link>https://atomicl.net/posts/2022/08/encodage/</link>
             <pubDate>Tue, 30 Aug 2022 19:06:29 +0200</pubDate>
             
-            <guid>https://blackcatrs.github.io/posts/2022/08/encodage/</guid>
+            <guid>https://atomicl.net/posts/2022/08/encodage/</guid>
             <description>Toutes les données sont stockées dans un format binaire brut (raw binary format) sur les ordinateurs. Ces formats de codage (Base64, Base58 et ASCII) ne sont que des façons différentes de lire et d&amp;rsquo;écrire des données binaires. Par exemple, en Base64, le code binaire 000000 représente la lettre A, mais en ASCII, le binaire 00000000 représente le caractère NUL.
 ASCII Base64 Base64 vs Base58 Encoding Base64 est l&amp;rsquo;un des formats d&amp;rsquo;encodage les plus populaires pour la représentation des données.</description>
             <content type="html"><![CDATA[<p>Toutes les données sont stockées dans un format binaire brut (raw binary format) sur les ordinateurs. Ces formats de codage (Base64, Base58 et ASCII) ne sont que des façons différentes de lire et d&rsquo;écrire des données binaires. Par exemple, en Base64, le code binaire 000000 représente la lettre A, mais en ASCII, le binaire 00000000 représente le caractère NUL.</p>

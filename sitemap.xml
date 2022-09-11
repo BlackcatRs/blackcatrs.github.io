@@ -2,47 +2,59 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blackcatrs.github.io/</loc>
+    <loc>https://atomicl.net/</loc>
+    <lastmod>2022-09-11T14:19:02+02:00</lastmod>
+  </url><url>
+    <loc>https://atomicl.net/tags/encryption/</loc>
+    <lastmod>2022-09-11T14:19:02+02:00</lastmod>
+  </url><url>
+    <loc>https://atomicl.net/tutoriels/gen_gpg_key/</loc>
+    <lastmod>2022-09-11T14:19:02+02:00</lastmod>
+  </url><url>
+    <loc>https://atomicl.net/tags/gpg/</loc>
+    <lastmod>2022-09-11T14:19:02+02:00</lastmod>
+  </url><url>
+    <loc>https://atomicl.net/tags/</loc>
+    <lastmod>2022-09-11T14:19:02+02:00</lastmod>
+  </url><url>
+    <loc>https://atomicl.net/tutoriels/</loc>
+    <lastmod>2022-09-11T14:19:02+02:00</lastmod>
+  </url><url>
+    <loc>https://atomicl.net/tutoriels/luks_remote_decryption/</loc>
     <lastmod>2022-09-07T21:18:13+02:00</lastmod>
   </url><url>
-    <loc>https://blackcatrs.github.io/tutoriels/luks_remote_decryption/</loc>
+    <loc>https://atomicl.net/tags/luks/</loc>
     <lastmod>2022-09-07T21:18:13+02:00</lastmod>
   </url><url>
-    <loc>https://blackcatrs.github.io/tags/luks/</loc>
+    <loc>https://atomicl.net/tags/ssh/</loc>
     <lastmod>2022-09-07T21:18:13+02:00</lastmod>
   </url><url>
-    <loc>https://blackcatrs.github.io/tags/ssh/</loc>
-    <lastmod>2022-09-07T21:18:13+02:00</lastmod>
-  </url><url>
-    <loc>https://blackcatrs.github.io/tags/</loc>
-    <lastmod>2022-09-07T21:18:13+02:00</lastmod>
-  </url><url>
-    <loc>https://blackcatrs.github.io/tutoriels/</loc>
-    <lastmod>2022-09-07T21:18:13+02:00</lastmod>
-  </url><url>
-    <loc>https://blackcatrs.github.io/tutoriels/gpg-agent/</loc>
+    <loc>https://atomicl.net/tutoriels/gpg-agent/</loc>
     <lastmod>2022-09-01T21:59:44+02:00</lastmod>
   </url><url>
-    <loc>https://blackcatrs.github.io/tags/password-manager/</loc>
+    <loc>https://atomicl.net/tags/gpg-agent/</loc>
+    <lastmod>2022-09-01T21:59:44+02:00</lastmod>
+  </url><url>
+    <loc>https://atomicl.net/tags/password-manager/</loc>
     <lastmod>2022-08-30T20:25:31+02:00</lastmod>
   </url><url>
-    <loc>https://blackcatrs.github.io/posts/</loc>
+    <loc>https://atomicl.net/posts/</loc>
     <lastmod>2022-08-30T20:25:31+02:00</lastmod>
   </url><url>
-    <loc>https://blackcatrs.github.io/posts/2022/08/self-hosted-password-managers/</loc>
+    <loc>https://atomicl.net/posts/2022/08/self-hosted-password-managers/</loc>
     <lastmod>2022-08-30T20:25:31+02:00</lastmod>
   </url><url>
-    <loc>https://blackcatrs.github.io/tags/encodage/</loc>
+    <loc>https://atomicl.net/tags/encodage/</loc>
     <lastmod>2022-08-30T19:06:29+02:00</lastmod>
   </url><url>
-    <loc>https://blackcatrs.github.io/posts/2022/08/encodage/</loc>
+    <loc>https://atomicl.net/posts/2022/08/encodage/</loc>
     <lastmod>2022-08-30T19:06:29+02:00</lastmod>
   </url><url>
-    <loc>https://blackcatrs.github.io/about/</loc>
+    <loc>https://atomicl.net/about/</loc>
     <lastmod>2014-04-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blackcatrs.github.io/categories/</loc>
+    <loc>https://atomicl.net/categories/</loc>
   </url><url>
-    <loc>https://blackcatrs.github.io/series/</loc>
+    <loc>https://atomicl.net/series/</loc>
   </url>
 </urlset>

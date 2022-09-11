@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>password-manager on BlackcatRS</title>
-    <link>https://blackcatrs.github.io/tags/password-manager/</link>
+    <link>https://atomicl.net/tags/password-manager/</link>
     <description>Recent content in password-manager on BlackcatRS</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 30 Aug 2022 20:25:31 +0200</lastBuildDate><atom:link href="https://blackcatrs.github.io/tags/password-manager/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 30 Aug 2022 20:25:31 +0200</lastBuildDate><atom:link href="https://atomicl.net/tags/password-manager/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Self-hosted password managers</title>
-      <link>https://blackcatrs.github.io/posts/2022/08/self-hosted-password-managers/</link>
+      <link>https://atomicl.net/posts/2022/08/self-hosted-password-managers/</link>
       <pubDate>Tue, 30 Aug 2022 20:25:31 +0200</pubDate>
       
-      <guid>https://blackcatrs.github.io/posts/2022/08/self-hosted-password-managers/</guid>
+      <guid>https://atomicl.net/posts/2022/08/self-hosted-password-managers/</guid>
       <description>Les mots de passe doivent être stockés en toute sécurité ou, en d&amp;rsquo;autres termes, les empreintes digitales (ou hachages) des mots de passe doivent être conservées plutôt que des mots de passe clairs. Ces empreintes, également appelées hachés, sont le résultat d&amp;rsquo;une fonction de hachage cryptographique qui utilise une valeur aléatoire unique (communément appelée un sel) lors du calcul du hachage du mot de passe.
 Pour conserver les mots de passe, il est recommandé d’utiliser des fonctions de dérivation de mots de passe memory-hard comme scrypt ou Argon2.</description>
     </item>

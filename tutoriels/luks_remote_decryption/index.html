@@ -10,7 +10,7 @@ Nous avons un programme qui résout ce problème en permettant de décrypter les
 <meta name="keywords" content=", Luks, SSH" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
-<link rel="canonical" href="https://blackcatrs.github.io/tutoriels/luks_remote_decryption/" />
+<link rel="canonical" href="https://atomicl.net/tutoriels/luks_remote_decryption/" />
 
 
     <title>
@@ -26,16 +26,16 @@ Nous avons un programme qui résout ce problème en permettant de décrypter les
 
 
 
-<link rel="stylesheet" href="https://blackcatrs.github.io/main.4e5c639214707eff609bb55fe49e183dee42258a73bc90e4cc7b0a84f900798a.css">
+<link rel="stylesheet" href="https://atomicl.net/main.4e5c639214707eff609bb55fe49e183dee42258a73bc90e4cc7b0a84f900798a.css">
 
 
 
-    <link rel="apple-touch-icon" sizes="180x180" href="https://blackcatrs.github.io/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://blackcatrs.github.io/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://blackcatrs.github.io/favicon-16x16.png">
-    <link rel="manifest" href="https://blackcatrs.github.io/site.webmanifest">
-    <link rel="mask-icon" href="https://blackcatrs.github.io/safari-pinned-tab.svg" color="">
-    <link rel="shortcut icon" href="https://blackcatrs.github.io/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://atomicl.net/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://atomicl.net/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://atomicl.net/favicon-16x16.png">
+    <link rel="manifest" href="https://atomicl.net/site.webmanifest">
+    <link rel="mask-icon" href="https://atomicl.net/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="https://atomicl.net/favicon.ico">
     <meta name="msapplication-TileColor" content="">
 
 
@@ -43,10 +43,10 @@ Nous avons un programme qui résout ce problème en permettant de décrypter les
 <meta itemprop="description" content="Sous Linux, nous chiffrons nos partitions et l&rsquo;intégralité du disque à l&rsquo;aide de Linux Unified Key Setup-on-disk-format (LUKS) pour la sécurité et la confidentialité. Nous déverrouillons le disque protégé (par LUKS) en fournissant une phrase de passe au démarrage. Donc, pour pouvoir déchiffrer, il faut être devant l&rsquo;ordinateur pour entrer la phrase secrète.
 Nous avons un programme qui résout ce problème en permettant de décrypter les partitions LUKS à distance. Voyons comment déverrouiller la partition LUKS à l&rsquo;aide des clés Dropbear SSH sous Linux au démarrage."><meta itemprop="datePublished" content="2022-09-07T21:18:13+02:00" />
 <meta itemprop="dateModified" content="2022-09-07T21:18:13+02:00" />
-<meta itemprop="wordCount" content="928"><meta itemprop="image" content="https://blackcatrs.github.io"/>
+<meta itemprop="wordCount" content="928"><meta itemprop="image" content="https://atomicl.net"/>
 <meta itemprop="keywords" content="Luks,SSH," />
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://blackcatrs.github.io"/>
+<meta name="twitter:image" content="https://atomicl.net"/>
 
 <meta name="twitter:title" content="Déchiffrement à distance de Luks"/>
 <meta name="twitter:description" content="Sous Linux, nous chiffrons nos partitions et l&rsquo;intégralité du disque à l&rsquo;aide de Linux Unified Key Setup-on-disk-format (LUKS) pour la sécurité et la confidentialité. Nous déverrouillons le disque protégé (par LUKS) en fournissant une phrase de passe au démarrage. Donc, pour pouvoir déchiffrer, il faut être devant l&rsquo;ordinateur pour entrer la phrase secrète.
@@ -58,7 +58,7 @@ Nous avons un programme qui résout ce problème en permettant de décrypter les
 <meta property="og:description" content="Sous Linux, nous chiffrons nos partitions et l&rsquo;intégralité du disque à l&rsquo;aide de Linux Unified Key Setup-on-disk-format (LUKS) pour la sécurité et la confidentialité. Nous déverrouillons le disque protégé (par LUKS) en fournissant une phrase de passe au démarrage. Donc, pour pouvoir déchiffrer, il faut être devant l&rsquo;ordinateur pour entrer la phrase secrète.
 Nous avons un programme qui résout ce problème en permettant de décrypter les partitions LUKS à distance. Voyons comment déverrouiller la partition LUKS à l&rsquo;aide des clés Dropbear SSH sous Linux au démarrage." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blackcatrs.github.io/tutoriels/luks_remote_decryption/" /><meta property="og:image" content="https://blackcatrs.github.io"/><meta property="article:section" content="tutoriels" />
+<meta property="og:url" content="https://atomicl.net/tutoriels/luks_remote_decryption/" /><meta property="og:image" content="https://atomicl.net"/><meta property="article:section" content="tutoriels" />
 <meta property="article:published_time" content="2022-09-07T21:18:13+02:00" />
 <meta property="article:modified_time" content="2022-09-07T21:18:13+02:00" />
 
@@ -88,7 +88,7 @@ Nous avons un programme qui résout ce problème en permettant de décrypter les
         <div class="container">
             <header class="header">
     <span class="header__inner">
-        <a href="https://blackcatrs.github.io/" style="text-decoration: none;">
+        <a href="https://atomicl.net/" style="text-decoration: none;">
     <div class="logo">
         
             <span class="logo__mark">BlackcarRS ~</span>
@@ -106,7 +106,7 @@ Nous avons un programme qui résout ce problème en permettant de décrypter les
         <span class="header__right">
             
                 <nav class="menu">
-    <ul class="menu__inner"><li><a href="https://blackcatrs.github.io/about/">A propos</a></li><li><a href="https://blackcatrs.github.io/posts/">Posts</a></li><li><a href="https://blackcatrs.github.io/tags/">Tags</a></li><li><a href="https://blackcatrs.github.io/tutoriels/">Tutoriels</a></li>
+    <ul class="menu__inner"><li><a href="https://atomicl.net/about/">A propos</a></li><li><a href="https://atomicl.net/posts/">Posts</a></li><li><a href="https://atomicl.net/tags/">Tags</a></li><li><a href="https://atomicl.net/tutoriels/">Tutoriels</a></li>
     </ul>
 </nav>
 
@@ -137,7 +137,7 @@ Nous avons un programme qui résout ce problème en permettant de décrypter les
         </div>
 
         <article>
-            <h2 class="post-title"><a href="https://blackcatrs.github.io/tutoriels/luks_remote_decryption/">Déchiffrement à distance de Luks</a></h2>
+            <h2 class="post-title"><a href="https://atomicl.net/tutoriels/luks_remote_decryption/">Déchiffrement à distance de Luks</a></h2>
 
             
             
@@ -223,8 +223,8 @@ Enter same passphrase again:
     <p>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
 
-        <span class="tag"><a href="https://blackcatrs.github.io/tags/luks/">Luks</a></span>
-        <span class="tag"><a href="https://blackcatrs.github.io/tags/ssh/">SSH</a></span>
+        <span class="tag"><a href="https://atomicl.net/tags/luks/">Luks</a></span>
+        <span class="tag"><a href="https://atomicl.net/tags/ssh/">SSH</a></span>
         
     </p>
 
@@ -240,9 +240,9 @@ Enter same passphrase again:
     <div class="footer__inner">
         <div class="footer__content">
             <span>&copy; 2022</span>
-            <span><a href="https://blackcatrs.github.io">BlackcatRS</a></span>
+            <span><a href="https://atomicl.net">BlackcatRS</a></span>
             
-            <span><a href="https://blackcatrs.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+            <span><a href="https://atomicl.net/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
             
         </div>
     </div>
@@ -263,7 +263,7 @@ Enter same passphrase again:
 
 
 
-<script type="text/javascript" src="https://blackcatrs.github.io/bundle.min.feebdc8d801e3fb1791305e362b6d11557f029604dd5b3c27e2686bc88787ee90ae1ccf0afe81bd7d959d7617cfe1fc73062aa82b4e1fa830d6941193d2cbddf.js" integrity="sha512-/uvcjYAeP7F5EwXjYrbRFVfwKWBN1bPCfiaGvIh4fukK4czwr&#43;gb19lZ12F8/h/HMGKqgrTh&#43;oMNaUEZPSy93w=="></script>
+<script type="text/javascript" src="https://atomicl.net/bundle.min.feebdc8d801e3fb1791305e362b6d11557f029604dd5b3c27e2686bc88787ee90ae1ccf0afe81bd7d959d7617cfe1fc73062aa82b4e1fa830d6941193d2cbddf.js" integrity="sha512-/uvcjYAeP7F5EwXjYrbRFVfwKWBN1bPCfiaGvIh4fukK4czwr&#43;gb19lZ12F8/h/HMGKqgrTh&#43;oMNaUEZPSy93w=="></script>
 
 
 
