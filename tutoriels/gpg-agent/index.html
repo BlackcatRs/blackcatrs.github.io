@@ -10,7 +10,7 @@ L&amp;rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées.
 <meta name="keywords" content=", encryption, gpg, gpg-agent" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
-<link rel="canonical" href="https://atomicl.net/tutoriels/gpg-agent/" />
+<link rel="canonical" href="https://www.atomicl.net/tutoriels/gpg-agent/" />
 
 
     <title>
@@ -26,16 +26,16 @@ L&amp;rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées.
 
 
 
-<link rel="stylesheet" href="https://atomicl.net/main.4e5c639214707eff609bb55fe49e183dee42258a73bc90e4cc7b0a84f900798a.css">
+<link rel="stylesheet" href="https://www.atomicl.net/main.4e5c639214707eff609bb55fe49e183dee42258a73bc90e4cc7b0a84f900798a.css">
 
 
 
-    <link rel="apple-touch-icon" sizes="180x180" href="https://atomicl.net/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://atomicl.net/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://atomicl.net/favicon-16x16.png">
-    <link rel="manifest" href="https://atomicl.net/site.webmanifest">
-    <link rel="mask-icon" href="https://atomicl.net/safari-pinned-tab.svg" color="">
-    <link rel="shortcut icon" href="https://atomicl.net/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.atomicl.net/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.atomicl.net/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://www.atomicl.net/favicon-16x16.png">
+    <link rel="manifest" href="https://www.atomicl.net/site.webmanifest">
+    <link rel="mask-icon" href="https://www.atomicl.net/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="https://www.atomicl.net/favicon.ico">
     <meta name="msapplication-TileColor" content="">
 
 
@@ -43,10 +43,10 @@ L&amp;rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées.
 <meta itemprop="description" content="Gpg-agent sous Linux Windows Linux Beaucoup d&rsquo;entre nous connaissent Secure Shell (SSH) et nous connaissons les avantages d&rsquo;utiliser une clé SSH au lieu d&rsquo;un mot de passe.
 L&rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées. SSH est un protocole sécurisé et les clés SSH sont sécurisées. Au lieu de cela, cela facilite la gestion et l&rsquo;utilisation de votre clé SSH. Toutes les commandes continueront à fonctionner comme avant, sauf que vous n&rsquo;aurez plus de clés privées SSH."><meta itemprop="datePublished" content="2022-09-01T21:59:44+02:00" />
 <meta itemprop="dateModified" content="2022-09-01T21:59:44+02:00" />
-<meta itemprop="wordCount" content="1031"><meta itemprop="image" content="https://atomicl.net"/>
+<meta itemprop="wordCount" content="1031"><meta itemprop="image" content="https://www.atomicl.net"/>
 <meta itemprop="keywords" content="encryption,gpg,gpg-agent," />
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://atomicl.net"/>
+<meta name="twitter:image" content="https://www.atomicl.net"/>
 
 <meta name="twitter:title" content="Authentification SSH à l&#39;aide d&#39;une clé GPG"/>
 <meta name="twitter:description" content="Gpg-agent sous Linux Windows Linux Beaucoup d&rsquo;entre nous connaissent Secure Shell (SSH) et nous connaissons les avantages d&rsquo;utiliser une clé SSH au lieu d&rsquo;un mot de passe.
@@ -58,7 +58,7 @@ L&rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées. SSH
 <meta property="og:description" content="Gpg-agent sous Linux Windows Linux Beaucoup d&rsquo;entre nous connaissent Secure Shell (SSH) et nous connaissons les avantages d&rsquo;utiliser une clé SSH au lieu d&rsquo;un mot de passe.
 L&rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées. SSH est un protocole sécurisé et les clés SSH sont sécurisées. Au lieu de cela, cela facilite la gestion et l&rsquo;utilisation de votre clé SSH. Toutes les commandes continueront à fonctionner comme avant, sauf que vous n&rsquo;aurez plus de clés privées SSH." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://atomicl.net/tutoriels/gpg-agent/" /><meta property="og:image" content="https://atomicl.net"/><meta property="article:section" content="tutoriels" />
+<meta property="og:url" content="https://www.atomicl.net/tutoriels/gpg-agent/" /><meta property="og:image" content="https://www.atomicl.net"/><meta property="article:section" content="tutoriels" />
 <meta property="article:published_time" content="2022-09-01T21:59:44+02:00" />
 <meta property="article:modified_time" content="2022-09-01T21:59:44+02:00" />
 
@@ -88,7 +88,7 @@ L&rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées. SSH
         <div class="container">
             <header class="header">
     <span class="header__inner">
-        <a href="https://atomicl.net/" style="text-decoration: none;">
+        <a href="https://www.atomicl.net/" style="text-decoration: none;">
     <div class="logo">
         
             <span class="logo__mark">BlackcarRS ~</span>
@@ -106,7 +106,7 @@ L&rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées. SSH
         <span class="header__right">
             
                 <nav class="menu">
-    <ul class="menu__inner"><li><a href="https://atomicl.net/about/">A propos</a></li><li><a href="https://atomicl.net/posts/">Posts</a></li><li><a href="https://atomicl.net/tags/">Tags</a></li><li><a href="https://atomicl.net/tutoriels/">Tutoriels</a></li>
+    <ul class="menu__inner"><li><a href="https://www.atomicl.net/about/">A propos</a></li><li><a href="https://www.atomicl.net/posts/">Posts</a></li><li><a href="https://www.atomicl.net/tags/">Tags</a></li><li><a href="https://www.atomicl.net/tutoriels/">Tutoriels</a></li>
     </ul>
 </nav>
 
@@ -137,7 +137,7 @@ L&rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées. SSH
         </div>
 
         <article>
-            <h2 class="post-title"><a href="https://atomicl.net/tutoriels/gpg-agent/">Authentification SSH à l&rsquo;aide d&rsquo;une clé GPG</a></h2>
+            <h2 class="post-title"><a href="https://www.atomicl.net/tutoriels/gpg-agent/">Authentification SSH à l&rsquo;aide d&rsquo;une clé GPG</a></h2>
 
             
             
@@ -285,9 +285,9 @@ enable-putty-support
     <p>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
 
-        <span class="tag"><a href="https://atomicl.net/tags/encryption/">encryption</a></span>
-        <span class="tag"><a href="https://atomicl.net/tags/gpg/">gpg</a></span>
-        <span class="tag"><a href="https://atomicl.net/tags/gpg-agent/">gpg-agent</a></span>
+        <span class="tag"><a href="https://www.atomicl.net/tags/encryption/">encryption</a></span>
+        <span class="tag"><a href="https://www.atomicl.net/tags/gpg/">gpg</a></span>
+        <span class="tag"><a href="https://www.atomicl.net/tags/gpg-agent/">gpg-agent</a></span>
         
     </p>
 
@@ -303,9 +303,9 @@ enable-putty-support
     <div class="footer__inner">
         <div class="footer__content">
             <span>&copy; 2022</span>
-            <span><a href="https://atomicl.net">BlackcatRS</a></span>
+            <span><a href="https://www.atomicl.net">BlackcatRS</a></span>
             
-            <span><a href="https://atomicl.net/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+            <span><a href="https://www.atomicl.net/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
             
         </div>
     </div>
@@ -326,7 +326,7 @@ enable-putty-support
 
 
 
-<script type="text/javascript" src="https://atomicl.net/bundle.min.feebdc8d801e3fb1791305e362b6d11557f029604dd5b3c27e2686bc88787ee90ae1ccf0afe81bd7d959d7617cfe1fc73062aa82b4e1fa830d6941193d2cbddf.js" integrity="sha512-/uvcjYAeP7F5EwXjYrbRFVfwKWBN1bPCfiaGvIh4fukK4czwr&#43;gb19lZ12F8/h/HMGKqgrTh&#43;oMNaUEZPSy93w=="></script>
+<script type="text/javascript" src="https://www.atomicl.net/bundle.min.feebdc8d801e3fb1791305e362b6d11557f029604dd5b3c27e2686bc88787ee90ae1ccf0afe81bd7d959d7617cfe1fc73062aa82b4e1fa830d6941193d2cbddf.js" integrity="sha512-/uvcjYAeP7F5EwXjYrbRFVfwKWBN1bPCfiaGvIh4fukK4czwr&#43;gb19lZ12F8/h/HMGKqgrTh&#43;oMNaUEZPSy93w=="></script>
 
 
 
