@@ -1,30 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>gpg on BlackcatRS</title>
-    <link>https://www.atomicl.net/tags/gpg/</link>
-    <description>Recent content in gpg on BlackcatRS</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 11 Sep 2022 14:19:02 +0200</lastBuildDate><atom:link href="https://www.atomicl.net/tags/gpg/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Générer une paire de clés GPG</title>
-      <link>https://www.atomicl.net/tutoriels/gen_gpg_key/</link>
-      <pubDate>Sun, 11 Sep 2022 14:19:02 +0200</pubDate>
-      
-      <guid>https://www.atomicl.net/tutoriels/gen_gpg_key/</guid>
-      <description>GnuPG, populairement connu sous le nom de GPG, est un outil extrêmement polyvalent largement utilisé comme norme de l&amp;rsquo;industrie pour chiffrer des données telles que des e-mails, des messages, des fichiers ou tout ce que vous devez stocker ou envoyer à quelqu&amp;rsquo;un de sûr.
-Le programme gpg présent par défaut dans la plupart des distributions Linux. Sur les systèmes basés sur Debian et Ubuntu, vous pouvez installer le program gpg en exécutant la commande suivante :</description>
-    </item>
-    
-    <item>
-      <title>Authentification SSH à l&#39;aide d&#39;une clé GPG</title>
-      <link>https://www.atomicl.net/tutoriels/gpg-agent/</link>
-      <pubDate>Thu, 01 Sep 2022 21:59:44 +0200</pubDate>
-      
-      <guid>https://www.atomicl.net/tutoriels/gpg-agent/</guid>
-      <description>Gpg-agent sous Linux Windows Linux Beaucoup d&amp;rsquo;entre nous connaissent Secure Shell (SSH) et nous connaissons les avantages d&amp;rsquo;utiliser une clé SSH au lieu d&amp;rsquo;un mot de passe.
-L&amp;rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées. SSH est un protocole sécurisé et les clés SSH sont sécurisées. Au lieu de cela, cela facilite la gestion et l&amp;rsquo;utilisation de votre clé SSH. Toutes les commandes continueront à fonctionner comme avant, sauf que vous n&amp;rsquo;aurez plus de clés privées SSH.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>gpg on BlackcatRS</title><link>https://www.atomicl.net/tags/gpg/</link><description>Recent content in gpg on BlackcatRS</description><generator>Hugo -- gohugo.io</generator><lastBuildDate>Sun, 11 Sep 2022 14:19:02 +0200</lastBuildDate><atom:link href="https://www.atomicl.net/tags/gpg/index.xml" rel="self" type="application/rss+xml"/><item><title>Générer une paire de clés GPG</title><link>https://www.atomicl.net/tutoriels/gen_gpg_key/</link><pubDate>Sun, 11 Sep 2022 14:19:02 +0200</pubDate><guid>https://www.atomicl.net/tutoriels/gen_gpg_key/</guid><description>GnuPG, populairement connu sous le nom de GPG, est un outil extrêmement polyvalent largement utilisé comme norme de l&amp;rsquo;industrie pour chiffrer des données telles que des e-mails, des messages, des fichiers ou tout ce que vous devez stocker ou envoyer à quelqu&amp;rsquo;un de sûr.
+Le programme gpg présent par défaut dans la plupart des distributions Linux. Sur les systèmes basés sur Debian et Ubuntu, vous pouvez installer le program gpg en exécutant la commande suivante :</description></item><item><title>Authentification SSH à l'aide d'une clé GPG</title><link>https://www.atomicl.net/tutoriels/gpg-agent/</link><pubDate>Thu, 01 Sep 2022 21:59:44 +0200</pubDate><guid>https://www.atomicl.net/tutoriels/gpg-agent/</guid><description>Gpg-agent sous Linux Windows Linux Beaucoup d&amp;rsquo;entre nous connaissent Secure Shell (SSH) et nous connaissons les avantages d&amp;rsquo;utiliser une clé SSH au lieu d&amp;rsquo;un mot de passe.
+L&amp;rsquo;utilisation de GPG ne rend pas vos connexions SSH plus sécurisées. SSH est un protocole sécurisé et les clés SSH sont sécurisées. Au lieu de cela, cela facilite la gestion et l&amp;rsquo;utilisation de votre clé SSH. Toutes les commandes continueront à fonctionner comme avant, sauf que vous n&amp;rsquo;aurez plus de clés privées SSH.</description></item></channel></rss>
