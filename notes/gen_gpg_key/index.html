@@ -1,0 +1,58 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Générer une paire de clés GPG | Vithurshan SELVARAJAH</title><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/fonts.css></head><body><nav><ul class=menu><li><a href=/>Home</a></li><li><a href=/notes/>Notebook</a></li><li><a href=/categories/>Categories</a></li><li><a href=/projects/>Projects</a></li><li><a href=/index.xml>RSS</a></li></ul><hr></nav><div class=article-meta><h1><span class=title>Générer une paire de clés GPG</span></h1><h2 class=date>2022/09/11</h2></div><main><p><code>GnuPG</code>, populairement connu sous le nom de GPG, est un outil extrêmement polyvalent largement utilisé comme norme de l&rsquo;industrie pour chiffrer des données telles que des e-mails, des messages, des fichiers ou tout ce que vous devez stocker ou envoyer à quelqu&rsquo;un de sûr.</p><p>Le programme gpg présent par défaut dans la plupart des distributions Linux. Sur les systèmes basés sur Debian et Ubuntu, vous pouvez installer le program gpg en exécutant la commande suivante :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>sudo apt install gpg
+</span></span></code></pre></div><p>Si vous utilisez des distributions basées sur Arch, installez le package gpg avec la commande pacman :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>sudo pacman -S gnupg
+</span></span></code></pre></div><p>Pour pouvoir chiffrer vos données à l&rsquo;aide de gpg, vous devez disposer d&rsquo;une paire de clés ou d&rsquo;une clé privée d&rsquo;un destinataire avec qui vous souhaitez partager vos données en toute sécurité. L&rsquo;envoi de courrier chiffré est un cas d&rsquo;utilisation de gpg.</p><p>La génération d&rsquo;une clé GPG sur votre système est une procédure simple à une seule commande. Exécutez simplement la commande suivante et votre clé sera générée (vous pouvez utiliser les valeurs par défaut pour la plupart des questions, comme indiqué dans les sections soulignées ci-dessous) :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>$  gpg --full-generate-key 
+</span></span><span style=display:flex><span>gpg <span style=color:#f92672>(</span>GnuPG<span style=color:#f92672>)</span> 2.2.27; Copyright <span style=color:#f92672>(</span>C<span style=color:#f92672>)</span> <span style=color:#ae81ff>2021</span> Free Software Foundation, Inc.
+</span></span><span style=display:flex><span>This is free software: you are free to change and redistribute it.
+</span></span><span style=display:flex><span>There is NO WARRANTY, to the extent permitted by law.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Sélectionnez le type de clef désiré :
+</span></span><span style=display:flex><span>   <span style=color:#f92672>(</span>1<span style=color:#f92672>)</span> RSA et RSA <span style=color:#f92672>(</span>par défaut<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>   <span style=color:#f92672>(</span>2<span style=color:#f92672>)</span> DSA et Elgamal
+</span></span><span style=display:flex><span>   <span style=color:#f92672>(</span>3<span style=color:#f92672>)</span> DSA <span style=color:#f92672>(</span>signature seule<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>   <span style=color:#f92672>(</span>4<span style=color:#f92672>)</span> RSA <span style=color:#f92672>(</span>signature seule<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>(</span>14<span style=color:#f92672>)</span> Existing key from card
+</span></span><span style=display:flex><span>Quel est votre choix ? <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>les clefs RSA peuvent faire une taille comprise entre <span style=color:#ae81ff>1024</span> et 4096 bits.
+</span></span><span style=display:flex><span>Quelle taille de clef désirez-vous ? <span style=color:#f92672>(</span>3072<span style=color:#f92672>)</span> <span style=color:#ae81ff>4096</span>
+</span></span><span style=display:flex><span>La taille demandée est 4096 bits
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Veuillez indiquer le temps pendant lequel cette clef devrait être valable.
+</span></span><span style=display:flex><span>         0 <span style=color:#f92672>=</span> la clef n<span style=color:#e6db74>&#39;expire pas
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      &lt;n&gt;  = la clef expire dans n jours
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      &lt;n&gt;w = la clef expire dans n semaines
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      &lt;n&gt;m = la clef expire dans n mois
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      &lt;n&gt;y = la clef expire dans n ans
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Pendant combien de temps la clef est-elle valable ? (0) 0
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>La clef n&#39;</span>expire pas du tout
+</span></span><span style=display:flex><span>Est-ce correct ? <span style=color:#f92672>(</span>o/N<span style=color:#f92672>)</span> o
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>GnuPG doit construire une identité pour identifier la clef.
+</span></span><span style=display:flex><span>Nom réel : Votre nom ici
+</span></span><span style=display:flex><span>Adresse électronique : xxx@domain.tld
+</span></span><span style=display:flex><span>Commentaire : La description
+</span></span><span style=display:flex><span>Vous avez sélectionné cette identité :
+</span></span><span style=display:flex><span>    « Votre nom ici <span style=color:#f92672>(</span>La description<span style=color:#f92672>)</span> &lt;xxx@domain.tld&gt; »
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Changer le <span style=color:#f92672>(</span>N<span style=color:#f92672>)</span>om, le <span style=color:#f92672>(</span>C<span style=color:#f92672>)</span>ommentaire, l<span style=color:#e6db74>&#39;(A)dresse électronique
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>ou (O)ui/(Q)uitter ? o
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>De nombreux octets aléatoires doivent être générés. Vous devriez faire
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>autre chose (taper au clavier, déplacer la souris, utiliser les disques)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>pendant la génération de nombres premiers ; cela donne au générateur de
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>nombres aléatoires une meilleure chance d&#39;</span>obtenir suffisamment d<span style=color:#e6db74>&#39;entropie.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>De nombreux octets aléatoires doivent être générés. Vous devriez faire
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>autre chose (taper au clavier, déplacer la souris, utiliser les disques)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>pendant la génération de nombres premiers ; cela donne au générateur de
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>nombres aléatoires une meilleure chance d&#39;</span>obtenir suffisamment d<span style=color:#e6db74>&#39;entropie.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>gpg: clef BA1281BBB47C8E64 marquée de confiance ultime.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>gpg: revocation certificate stored as &#39;</span>/home/username/.gnupg/openpgp-revocs.d/A5DDBFE7E7A2ACEDD63A46D3BA1281BBB47C8E64.rev<span style=color:#960050;background-color:#1e0010>&#39;</span>
+</span></span><span style=display:flex><span>les clefs publique et secrète ont été créées et signées.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>pub   rsa4096 2022-09-01 <span style=color:#f92672>[</span>SC<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>      A5DDBFE7E7A2ACEDD63A46D3BA1281BBB47C8E64
+</span></span><span style=display:flex><span>uid                      Votre nom ici <span style=color:#f92672>(</span>La description<span style=color:#f92672>)</span> &lt;xxx@domain.tld&gt;
+</span></span><span style=display:flex><span>sub   rsa4096 2022-09-01 <span style=color:#f92672>[</span>E<span style=color:#f92672>]</span>
+</span></span></code></pre></div></main><footer><script defer src=//yihui.org/js/math-code.js></script>
+<script defer src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script defer src=//yihui.org/js/center-img.js></script><hr>© <a href=https://www.atomicl.net>Vithurshan SELVARAJAH</a> 2022 &ndash; 2023 | <a href=https://github.com/BlackcatRs>Github</a> | <a href=https://www.linkedin.com/in/vithurshan-selvarajah/>LinkedIn</a></footer></body></html>
