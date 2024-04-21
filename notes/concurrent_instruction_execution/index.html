@@ -1,0 +1,56 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Concurrent Instruction Execution | Vithurshan SELVARAJAH</title><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/fonts.css></head><body><nav><ul class=menu><li><a href=/>Home</a></li><li><a href=/notes/>Notebook</a></li><li><a href=/categories/>Categories</a></li><li><a href=/projects/>Projects</a></li><li><a href=/index.xml>RSS</a></li></ul><hr></nav><div class=article-meta><h1><span class=title>Concurrent Instruction Execution</span></h1><h2 class=date>2024/04/21</h2></div><main><p>The system call <code class=verbatim>fork()</code> is used to create new process which is a exact copy of the caller/parent process and the created process is called child process.</p><p>Here is an illustration of creating processes using the <code class=verbatim>fork()</code> function:</p><div class="src src-c"><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span>  <span style=color:#75715e>#include</span>  <span style=color:#75715e>&lt;stdio.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#75715e>#include</span>  <span style=color:#75715e>&lt;string.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;unistd.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#75715e>#include</span>  <span style=color:#75715e>&lt;sys/types.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>  <span style=color:#75715e>#define   MAX_COUNT  200
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#75715e>#define   BUF_SIZE   100
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>void</span>  <span style=color:#a6e22e>main</span>(<span style=color:#66d9ef>void</span>)
+</span></span><span style=display:flex><span>  {
+</span></span><span style=display:flex><span>    pid_t  pid;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span>    i;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>char</span>   buf[BUF_SIZE];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    fork();
+</span></span><span style=display:flex><span>    pid <span style=color:#f92672>=</span> getpid();
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;=</span> MAX_COUNT; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>      sprintf(buf, <span style=color:#e6db74>&#34;This line is from pid %d, value = %d</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, pid, i);
+</span></span><span style=display:flex><span>      write(<span style=color:#ae81ff>1</span>, buf, strlen(buf));
+</span></span><span style=display:flex><span>    } 
+</span></span><span style=display:flex><span>  }</span></span></code></pre></div></div><p>If the above program successfully executes up to the <code class=verbatim>fork()</code> function (marked with an arrow in the following figure):</p><div class="src src-text"><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>     Parent
+</span></span><span style=display:flex><span>+_____________+
+</span></span><span style=display:flex><span>| main() {    |
+</span></span><span style=display:flex><span>|  fork();    | &lt;===
+</span></span><span style=display:flex><span>|  pid = ...; |
+</span></span><span style=display:flex><span>|  ....;      |
+</span></span><span style=display:flex><span>| }           |
+</span></span><span style=display:flex><span>+_____________+</span></span></code></pre></div></div><p>Then it will create a new process identical to the parent process, except the return value of the <code class=verbatim>fork()</code> function, which is different for the two processes. This value is set by the kernel as the result of the <code class=verbatim>fork()</code> call. This is why we say that the <code class=verbatim>fork()</code> function return twice:</p><div class="src src-text"><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>     Parent                            Child
+</span></span><span style=display:flex><span>+_____________+                    +_____________+
+</span></span><span style=display:flex><span>| main() {    |                    | main() {    |
+</span></span><span style=display:flex><span>|  fork();    |                    |  fork();    |
+</span></span><span style=display:flex><span>|  pid = xxx; | &lt;===               |  pid = xxx; | &lt;===
+</span></span><span style=display:flex><span>|  ....;      |                    |  ....;      |
+</span></span><span style=display:flex><span>| }           |                    | }           |
+</span></span><span style=display:flex><span>+_____________+                    +_____________+</span></span></code></pre></div></div><p>Since both processes have identical but separate address spaces, the variables set before the <code class=verbatim>fork()</code> call will have the same value in both processes. However, because each process has its own address space, changes to these variables are independent of each other. In other words, changing the variable defined in the parent process will not affect the variable in the child process.</p><p>After the <code class=verbatim>fork()</code> system call or after created a new process both processes continue the execution of the program. Since the new process is an exact copy of the caller process, they both execute the same instructions that can be found after the <code class=verbatim>fork()</code> call in our code.</p><p>As mentioned above, the <code class=verbatim>fork()</code> function will create an exact copy of the caller process with a different value in the pid variable. We can use this value to determine whether the process is the parent or the child:</p><div class="src src-c"><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span>  <span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;stdio.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>  <span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;unistd.h&gt;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>main</span>() {
+</span></span><span style=display:flex><span>      pid_t pid;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      pid <span style=color:#f92672>=</span> fork();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>if</span> (pid <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>             <span style=color:#75715e>// Error handling
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>             fprintf(stderr, <span style=color:#e6db74>&#34;Fork failed</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>);
+</span></span><span style=display:flex><span>             <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>         } <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (pid <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>             <span style=color:#75715e>// This will executed by the child process
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>             printf(<span style=color:#e6db74>&#34;Child process: Returned value from fork() is %d</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, pid);
+</span></span><span style=display:flex><span>         } <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>             <span style=color:#75715e>// This will executed by the parent process
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>             printf(<span style=color:#e6db74>&#34;Parent process: Returned value from fork() is %d</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, pid);
+</span></span><span style=display:flex><span>         }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>         <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>  }</span></span></code></pre></div></div></main><footer><hr>© <a href=https://www.atomicl.net>Vithurshan SELVARAJAH</a> 2022 &ndash; 2024 | <a href=https://github.com/BlackcatRs>Github</a> | <a href=https://www.linkedin.com/in/vithurshan-selvarajah/>LinkedIn</a></footer></body></html>
