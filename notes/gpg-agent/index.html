@@ -95,4 +95,21 @@ enable-putty-support
 </code></pre><h3 id=configuration-de-git-pour-utiliser-gpg4win-et-putty>Configuration de Git pour utiliser Gpg4win et PuTTY</h3><p>Ajoutez une variable d&rsquo;environnement pour ordonner à Git d&rsquo;utiliser plink au lieu de l&rsquo;OpenSSH intégré. Plink est utilisé pour une session SSH non interactive pour exécuter des commandes à distance à des fins d&rsquo;automatisation à partir de votre Windows, tandis que PuTTY est utilisé pour une session SSH interactive de votre Windows vers des serveurs a distance :</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#66d9ef>[System.Environment]</span>::SetEnvironmentVariable(<span style=color:#e6db74>&#39;GIT_SSH&#39;</span>, <span style=color:#e6db74>&#39;C:\Program Files\PuTTY\plink.exe&#39;</span>, <span style=color:#66d9ef>[System.EnvironmentVariableTarget]</span>::Machine)
 </span></span></code></pre></div><p>Git sous Windows utilise son propre GPG, dites-lui donc d&rsquo;utiliser Gpg4win dans <code>.gitconfig</code> :</p><pre tabindex=0><code class=language-git-config data-lang=git-config>[gpg]
 	program = C:/Program Files (x86)/GnuPG/bin/gpg.exe
-</code></pre><h2 id=configurer-le-serveur-a-distance-pour-utiliser-la-sous-clé-gpg>Configurer le serveur a distance pour utiliser la sous-clé gpg</h2><p>Pour utiliser SSH, vous devez partager votre clé publique avec l&rsquo;hôte distant dont vous souhaitez prendre le contrôle. Vous pouvez exécuter <code>ssh-add -L</code> pour visualiser vos clés publiques et les copier manuellement sur l&rsquo;hôte distant dans le fichier <code>~/.ssh/authorized_keys</code>.</p></main><footer><hr>© <a href=https://www.atomicl.net>Vithurshan SELVARAJAH</a> 2022 &ndash; 2024 | <a href=https://github.com/BlackcatRs>Github</a> | <a href=https://www.linkedin.com/in/vithurshan-selvarajah/>LinkedIn</a></footer></body></html>
+</code></pre><h2 id=configurer-le-serveur-a-distance-pour-utiliser-la-sous-clé-gpg>Configurer le serveur a distance pour utiliser la sous-clé gpg</h2><p>Pour utiliser SSH, vous devez partager votre clé publique avec l&rsquo;hôte distant dont vous souhaitez prendre le contrôle. Vous pouvez exécuter <code>ssh-add -L</code> pour visualiser vos clés publiques et les copier manuellement sur l&rsquo;hôte distant dans le fichier <code>~/.ssh/authorized_keys</code>.</p><h2 id=supprimer-la-clé-de-gpg-agent>Supprimer la clé de GPG Agent</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>ssh-add -l
+</span></span></code></pre></div><pre tabindex=0><code>2048 27:f1:31:87:c8:05:5e:30:32:04:61:83:af:f5:8d:a1 cardno:000500000241 (RSA)
+2048 69:22:fd:08:4e:a5:77:c5:2c:1c:c5:e4:e3:e0:96:96 /home/peter/.ssh/id_rsa (RSA)
+256 03:92:b4:ff:0b:8c:dc:39:63:d0:18:c1:1e:78:12:ff test_id (ED25519)
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>gpg-connect-agent
+</span></span></code></pre></div><pre tabindex=0><code>&gt; KEYINFO --ssh-list --ssh-fpr
+S KEYINFO ECBEA361DD2230F79F086E3CAE198EB94A0CE6CF D - - 1 P 69:22:fd:08:4e:a5:77:c5:2c:1c:c5:e4:e3:e0:96:96 - S
+S KEYINFO 5D73C7891879A68CE056175C3563F7064B03BAE8 D - - - P 03:92:b4:ff:0b:8c:dc:39:63:d0:18:c1:1e:78:12:ff - S
+OK
+
+&gt; DELETE_KEY 5D73C7891879A68CE056175C3563F7064B03BAE8
+OK
+
+&gt; /bye
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>ssh-add -l
+</span></span></code></pre></div><pre tabindex=0><code>2048 27:f1:31:87:c8:05:5e:30:32:04:61:83:af:f5:8d:a1 cardno:000500000241 (RSA)
+2048 69:22:fd:08:4e:a5:77:c5:2c:1c:c5:e4:e3:e0:96:96 /home/peter/.ssh/id_rsa (RSA)
+</code></pre></main><footer><hr>© <a href=https://www.atomicl.net>Vithurshan SELVARAJAH</a> 2022 &ndash; 2025 | <a href=https://github.com/BlackcatRs>Github</a> | <a href=https://www.linkedin.com/in/vithurshan-selvarajah/>LinkedIn</a></footer></body></html>
