@@ -75,6 +75,7 @@ h2 {
 
 .profile-info {
     flex: 1;
+    margin-left: 1.5em;
 }
 
 .profile-info h2 {
@@ -104,5 +105,19 @@ h2 {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    object-fit: cover;
+    /* object-fit: cover; */
+}
+
+
+/* Add responsiveness for smaller screens */
+@media (max-width: 768px) {
+    .profile-card {
+	display: flex;
+	flex-direction: column; /* Makes children stack vertically */
+    }
+    
+    .social-icons {
+	justify-content: center;
+    }
+
 }
