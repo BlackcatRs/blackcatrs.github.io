@@ -1,0 +1,42 @@
+body {
+  counter-reset: h2-counter h3-counter; h4-counter; h5-counter; h6-counter; /* Sets up three counters for auto-numbering for headings */
+}
+
+h2 {
+  counter-reset: h3-counter; /* Reset h3 numbering when a new h2 appears */
+}
+
+h2::before {
+  counter-increment: h2-counter; /* Increases h2-counter by 1 each time an h2 appears */
+  content: counter(h2-counter) ". "; /* counter(h1-counter) Fetches the current value of h2-counter*/
+}
+
+
+h3 {
+  counter-reset: h4-counter; /* Reset h3 numbering when a new h2 appears */
+}
+
+h3::before {
+  counter-increment: h3-counter;
+  content: counter(h2-counter) "." counter(h3-counter) ". ";
+}
+
+
+h4 {
+  counter-reset: h5-counter; /* Reset h3 numbering when a new h2 appears */
+}
+
+h4::before {
+  counter-increment: h4-counter;
+  content: counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) ". ";
+}
+
+
+h5 {
+  counter-reset: h6-counter; /* Reset h3 numbering when a new h2 appears */
+}
+
+h5::before {
+  counter-increment: h6-counter;
+  content: counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) "." counter(h4-counter) ". ";
+}

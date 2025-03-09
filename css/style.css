@@ -5,16 +5,20 @@ body {
   line-height: 1.5;
 }
 
+a {
+    text-decoration: none;
+}
+
 /* header and footer areas */
 .menu { padding: 0; }
 .menu li { display: inline-block; }
-.article-meta, .menu a {
+.menu a {
   text-decoration: none;
   background: #eee;
   padding: 5px;
   border-radius: 5px;
 }
-.menu, .article-meta, footer { text-align: center; }
+.menu, footer { text-align: center; }
 .title { font-size: 1.1em; }
 footer a { text-decoration: none; }
 hr {
@@ -49,3 +53,54 @@ table {
 table thead th { border-bottom: 1px solid #ddd; }
 th, td { padding: 5px; }
 thead, tfoot, tr:nth-child(even) { background: #eee; }
+
+/* Full-width thin line under headings */
+h2 {
+  padding-bottom: 1px; /* Space between text and line */
+  margin-bottom: 20px; /* Space between heading and next content */
+  border-bottom: 2px solid #ccc; /* Thin horizontal line */
+}
+
+
+/* Styling for article meta information */
+.article-meta {
+    margin-bottom: 20px;
+}
+
+.article-meta .title {
+    /* font-size: 1.5em; */
+    font-weight: bold;
+    margin-bottom: 0px;
+    padding: 0px;
+}
+
+
+.article-meta h1 {
+    margin: 0;
+    padding-bottom: 0px;
+}
+
+.post-meta {
+    margin-top: 0; /* Removes space above div */
+    font-size: 0.9em;
+    color: #777;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+
+/* Add responsiveness for smaller screens */
+@media (max-width: 768px) {
+  .post-meta {
+      flex-direction: column;
+      gap: 0px;
+  }
+
+  .seperator {
+      display: none;
+      visibility: hidden;
+  }
+
+}
+/* Styling for article meta information */
