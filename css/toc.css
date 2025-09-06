@@ -1,0 +1,88 @@
+:root {
+  --gap: 24px;
+  --content-gap: 20px;
+  --radius: 8px;
+  --primary: rgb(30, 30, 30);
+  --secondary: rgb(108, 108, 108);
+  --tertiary: rgb(165, 165, 165);
+  --border: rgb(230, 230, 230);
+  --code-bg: rgb(245, 245, 245);
+  --entry: rgb(255, 255, 255);
+}
+
+.toc {
+  margin: var(--hr-gap) 3px;
+  border: 1px solid var(--border);
+  background: var(--code-bg);
+  border-radius: var(--radius);
+  padding: 0.4em;
+}
+
+.toc details summary {
+  cursor: zoom-in;
+  margin-inline-start: 10px;
+  user-select: none;
+}
+
+.toc details[open] summary {
+  cursor: zoom-out;
+}
+
+.toc .details {
+  display: inline;
+  font-weight: 500;
+}
+
+.toc .inner {
+  margin: 5px 20px 0;
+  padding: 0 10px;
+  opacity: 0.9;
+}
+
+.toc li ul {
+    margin-inline-start: 12px; /* smaller, cleaner indent */    
+}
+
+.toc summary:focus {
+  outline: 0;
+}
+
+.toc a:hover {
+  box-shadow: 0 1px 0;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.toc ul {
+  padding-left: 0; /* remove browser’s default UL padding */
+  list-style: none; /* optional: remove bullets */
+}
+
+.toc li ul {
+  margin-inline-start: 12px;
+}
+
+.toc li li ul {
+  margin-inline-start: 10px;
+}
+
+.toc li li li ul {
+  margin-inline-start: 8px;
+}
+
+/* Make sure list markers are visible */
+.toc ul {
+  list-style: disc;       /* classic dot */
+  margin: 0;
+  padding-left: 18px;     /* space for dots */
+}
+
+.toc li {
+  margin: 4px 0;          /* vertical spacing */
+}
+
+/* Style the dots themselves */
+.toc li::marker {
+  color: var(--tertiary); /* subtle gray tone */
+  font-size: 0.9em;       /* slightly smaller than text */
+}
